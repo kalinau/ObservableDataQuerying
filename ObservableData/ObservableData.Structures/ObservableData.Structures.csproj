@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2A57421C-29F6-4318-9C08-0CFA2F3270DA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ObservableData.Structures</RootNamespace>
+    <AssemblyName>ObservableData.Structures</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .NET Framework is automatically included -->
+    <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IBatchCollection.cs" />
+    <Compile Include="IObservableCollection.cs" />
+    <Compile Include="IObservableList.cs" />
+    <Compile Include="IObservableReadOnlyCollection.cs" />
+    <Compile Include="IObservableReadOnlyList.cs" />
+    <Compile Include="ListUpdatesAggregator.cs" />
+    <Compile Include="ObservableList.cs" />
+    <Compile Include="ObservableReadOnlyCollectionExtensions.cs" />
+    <Compile Include="ObservableReadOnlyListAdapter.cs" />
+    <Compile Include="ObservableReadOnlyListExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Updates\AddItemToList.cs" />
+    <Compile Include="Updates\AddMutableSequenceToCollection.cs" />
+    <Compile Include="Updates\AddMutableSequenceToList.cs" />
+    <Compile Include="Updates\BatchUpdate.cs" />
+    <Compile Include="Updates\ClearList.cs" />
+    <Compile Include="Updates\EnumerableUpdate.cs" />
+    <Compile Include="Updates\IQuickLinkableUpdate.cs" />
+    <Compile Include="Updates\ListSingleUpdate.cs" />
+    <Compile Include="Updates\MoveAtList.cs" />
+    <Compile Include="Updates\MutableUpdate.cs" />
+    <Compile Include="Updates\RemoveAtList.cs" />
+    <Compile Include="Updates\ReplaceAtList.cs" />
+    <Compile Include="Updates\ResetWithMutableSequenceToList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ObservableData.Querying\ObservableData.Querying.csproj">
+      <Project>{3F528850-6745-49ED-B71A-2FD0794D45CD}</Project>
+      <Name>ObservableData.Querying</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="JetBrains.Annotations">
+      <HintPath>..\..\..\..\..\.nuget\packages\JetBrains.Annotations\10.4.0\lib\netstandard1.0\JetBrains.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>..\..\..\..\..\.nuget\packages\System.Runtime\4.1.0\ref\netstandard1.0\System.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+</Project>
