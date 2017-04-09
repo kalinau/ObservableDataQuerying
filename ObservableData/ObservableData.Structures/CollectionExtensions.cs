@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
 using JetBrains.Annotations;
-using ObservableData.Querying.Core;
+using ObservableData.Querying;
 using ObservableData.Structures.Collections.Updates;
 
 namespace ObservableData.Structures

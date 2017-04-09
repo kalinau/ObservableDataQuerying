@@ -1,4 +1,4 @@
-using ObservableData.Querying.Core;
+using ObservableData.Querying;
 
 namespace ObservableData.Structures.Lists.Updates
 {

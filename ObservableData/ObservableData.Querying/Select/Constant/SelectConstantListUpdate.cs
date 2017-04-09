@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using ObservableData.Querying.Core;
 using ObservableData.Querying.Utils.Adapters;
 
 namespace ObservableData.Querying.Select.Constant

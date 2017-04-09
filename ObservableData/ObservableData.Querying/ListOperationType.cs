@@ -1,4 +1,4 @@
-﻿namespace ObservableData.Querying.Core
+﻿namespace ObservableData.Querying
 {
     public enum ListOperationType
     {

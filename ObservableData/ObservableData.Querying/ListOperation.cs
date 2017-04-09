@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace ObservableData.Querying.Core
+namespace ObservableData.Querying
 {
     public struct ListOperation<T>
     {

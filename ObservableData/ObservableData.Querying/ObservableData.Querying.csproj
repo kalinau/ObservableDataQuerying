@@ -35,13 +35,13 @@
   <ItemGroup>
     <Compile Include=".Utils\Adapters\CollectionAdapter.cs" />
     <Compile Include=".Utils\Adapters\ListAdapter.cs" />
-    <Compile Include=".Core\IQuery.cs" />
-    <Compile Include=".Core\ListOperation.cs" />
-    <Compile Include=".Core\ListOperationType.cs" />
-    <Compile Include=".Core\CollectionOperation.cs" />
-    <Compile Include=".Core\CollectionOperationType.cs" />
+    <Compile Include="IQuery.cs" />
+    <Compile Include="ListOperation.cs" />
+    <Compile Include="ListOperationType.cs" />
+    <Compile Include="CollectionOperation.cs" />
+    <Compile Include="CollectionOperationType.cs" />
     <Compile Include=".Utils\Efficiency\InefficientUsageException.cs" />
-    <Compile Include=".Core\IUpdate.cs" />
+    <Compile Include="IUpdate.cs" />
     <Compile Include=".Utils\Efficiency\Inneficient.cs" />
     <Compile Include=".Utils\ListOperationExtensions.cs" />
     <Compile Include=".Utils\MutableUpdate.cs" />

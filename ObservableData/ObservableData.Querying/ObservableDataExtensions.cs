@@ -1,6 +1,5 @@
 using System;
 using JetBrains.Annotations;
-using ObservableData.Querying.Core;
 using ObservableData.Querying.Select.Constant;
 using ObservableData.Querying.Where.Immutable;
 
