@@ -4,11 +4,11 @@ using ObservableData.Querying.Core;
 
 namespace ObservableData.Structures.Utils
 {
-    public sealed class ListUpdateToDataUpdates<T> : IUpdate<ListOperation<T>>
+    public sealed class ListUpdateToQueryUpdates<T> : IUpdate<ListOperation<T>>
     {
         [NotNull] private readonly IUpdate<IListOperation<T>> _adaptee;
 
-        public ListUpdateToDataUpdates([NotNull] IUpdate<IListOperation<T>> adaptee)
+        public ListUpdateToQueryUpdates([NotNull] IUpdate<IListOperation<T>> adaptee)
         {
             _adaptee = adaptee;
         }

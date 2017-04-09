@@ -16,26 +16,26 @@ namespace ObservableData.Structures
             list.Updates.StartWith(new ListInsertBatchOperation<T>(list, 0));
 
         [NotNull]
-        public static IObservableData<T> AsData<T>(
+        public static IQuery<T> AsQuery<T>(
             [NotNull] this IObservableReadOnlyList<T> list) => 
-            new ListToDataAdapter<T>(list);
+            new ListToQueryAdapter<T>(list);
 
         [NotNull]
-        public static IObservableData<TIn> SelectImmutable<TIn, TOut>(
+        public static IQuery<TIn> SelectImmutable<TIn, TOut>(
             [NotNull] this IObservableReadOnlyList<TIn> list,
             [NotNull] Func<TIn, TOut> func) =>
-            list.AsData().SelectImmutable(func);
+            list.AsQuery().SelectImmutable(func);
 
         [NotNull]
-        public static IObservableData<TOut> SelectConstant<TIn, TOut>(
+        public static IQuery<TOut> SelectConstant<TIn, TOut>(
             [NotNull] this IObservableReadOnlyList<TIn> list,
             [NotNull] Func<TIn, TOut> func) =>
-            list.AsData().SelectConstant(func);
+            list.AsQuery().SelectConstant(func);
 
         [NotNull]
-        public static IObservableData<TIn> Where<TIn, TCriteria>(
+        public static IQuery<TIn> Where<TIn, TCriteria>(
             [NotNull] this IObservableReadOnlyList<TIn> list,
             [NotNull] Func<TIn, bool> func) =>
-            list.AsData().Where(func);
+            list.AsQuery().Where(func);
     }
 }

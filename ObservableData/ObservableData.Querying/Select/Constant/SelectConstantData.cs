@@ -7,12 +7,12 @@ using ObservableData.Querying.Utils.Adapters;
 
 namespace ObservableData.Querying.Select.Constant
 {
-    public sealed class SelectConstantData<TIn, TOut> : IObservableData<TOut>
+    public sealed class SelectConstantData<TIn, TOut> : IQuery<TOut>
     {
-        [NotNull] private readonly IObservableData<TIn> _previous;
+        [NotNull] private readonly IQuery<TIn> _previous;
         [NotNull] private readonly Func<TIn, TOut> _func;
 
-        public SelectConstantData([NotNull] IObservableData<TIn> previous, [NotNull] Func<TIn, TOut> func)
+        public SelectConstantData([NotNull] IQuery<TIn> previous, [NotNull] Func<TIn, TOut> func)
         {
             _previous = previous;
             _func = func;

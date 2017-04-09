@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using ObservableData.Querying.Utils;
 
 namespace ObservableData.Querying.Core
 {
-    public interface IObservableData<T>
+    public interface IQuery<T>
     {
         void IgnoreEfficiency();
 

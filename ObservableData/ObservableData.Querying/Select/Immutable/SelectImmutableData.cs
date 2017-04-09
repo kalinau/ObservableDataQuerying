@@ -5,12 +5,12 @@ using ObservableData.Querying.Core;
 
 namespace ObservableData.Querying.Select.Immutable
 {
-    public sealed class SelectImmutableData<TIn, TOut> : IObservableData<TOut>
+    public sealed class SelectImmutableData<TIn, TOut> : IQuery<TOut>
     {
-        [NotNull] private readonly IObservableData<TIn> _previous;
+        [NotNull] private readonly IQuery<TIn> _previous;
         [NotNull] private readonly Func<TIn, TOut> _func;
 
-        public SelectImmutableData([NotNull] Func<TIn, TOut> func, [NotNull] IObservableData<TIn> previous)
+        public SelectImmutableData([NotNull] Func<TIn, TOut> func, [NotNull] IQuery<TIn> previous)
         {
             _previous = previous;
             _func = func;

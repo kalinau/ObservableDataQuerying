@@ -5,11 +5,11 @@ using ObservableData.Querying.Core;
 
 namespace ObservableData.Structures.Utils
 {
-    public sealed class CollectionUpdateToDataUpdates<T> : IUpdate<CollectionOperation<T>>
+    public sealed class CollectionUpdateToQueryUpdates<T> : IUpdate<CollectionOperation<T>>
     {
         [NotNull] private readonly IUpdate<ICollectionOperation<T>> _adaptee;
 
-        public CollectionUpdateToDataUpdates([NotNull] IUpdate<ICollectionOperation<T>> adaptee)
+        public CollectionUpdateToQueryUpdates([NotNull] IUpdate<ICollectionOperation<T>> adaptee)
         {
             _adaptee = adaptee;
         }

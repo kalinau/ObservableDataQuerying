@@ -6,11 +6,11 @@ using ObservableData.Querying.Core;
 
 namespace ObservableData.Structures.Utils
 {
-    public class ListToDataAdapter<T> : IObservableData<T>
+    public class ListToQueryAdapter<T> : IQuery<T>
     {
         [NotNull] private readonly IObservableReadOnlyList<T> _adaptee;
 
-        public ListToDataAdapter([NotNull] IObservableReadOnlyList<T> adaptee)
+        public ListToQueryAdapter([NotNull] IObservableReadOnlyList<T> adaptee)
         {
             _adaptee = adaptee;
         }
@@ -43,14 +43,14 @@ namespace ObservableData.Structures.Utils
             return _adaptee.Updates.Select(Adapt).Subscribe(observer);
         }
 
-        private static ListUpdateToDataUpdates<T> Adapt([NotNull] IUpdate<IListOperation<T>> x)
+        private static ListUpdateToQueryUpdates<T> Adapt([NotNull] IUpdate<IListOperation<T>> x)
         {
-            return new ListUpdateToDataUpdates<T>(x);
+            return new ListUpdateToQueryUpdates<T>(x);
         }
 
-        private static CollectionUpdateToDataUpdates<T> Adapt([NotNull] IUpdate<ICollectionOperation<T>> x)
+        private static CollectionUpdateToQueryUpdates<T> Adapt([NotNull] IUpdate<ICollectionOperation<T>> x)
         {
-            return new CollectionUpdateToDataUpdates<T>(x);
+            return new CollectionUpdateToQueryUpdates<T>(x);
         }
     }
 }

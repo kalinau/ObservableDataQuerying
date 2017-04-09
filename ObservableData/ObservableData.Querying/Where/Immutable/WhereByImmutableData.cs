@@ -8,13 +8,13 @@ using ObservableData.Querying.Utils.Efficiency;
 
 namespace ObservableData.Querying.Where.Immutable
 {
-    public sealed class WhereByImmutableData<T> : IObservableData<T>
+    public sealed class WhereByImmutableData<T> : IQuery<T>
     {
-        [NotNull] private readonly IObservableData<T> _previous;
+        [NotNull] private readonly IQuery<T> _previous;
         [NotNull] private readonly Func<T, bool> _func;
         private bool _isWarningDisabled;
 
-        public WhereByImmutableData([NotNull] IObservableData<T> previous, [NotNull] Func<T, bool> func)
+        public WhereByImmutableData([NotNull] IQuery<T> previous, [NotNull] Func<T, bool> func)
         {
             _previous = previous;
             _func = func;

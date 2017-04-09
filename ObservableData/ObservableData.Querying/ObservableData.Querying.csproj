@@ -35,7 +35,7 @@
   <ItemGroup>
     <Compile Include=".Utils\Adapters\CollectionAdapter.cs" />
     <Compile Include=".Utils\Adapters\ListAdapter.cs" />
-    <Compile Include=".Core\IObservableData.cs" />
+    <Compile Include=".Core\IQuery.cs" />
     <Compile Include=".Core\ListOperation.cs" />
     <Compile Include=".Core\ListOperationType.cs" />
     <Compile Include=".Core\CollectionOperation.cs" />

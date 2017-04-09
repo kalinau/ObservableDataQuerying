@@ -33,8 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include=".Utils\CollectionUpdateToDataUpdates.cs" />
-    <Compile Include=".Utils\ListUpdateToDataUpdates.cs" />
+    <Compile Include=".Utils\CollectionUpdateToQueryUpdates.cs" />
+    <Compile Include=".Utils\ListUpdateToQueryUpdates.cs" />
     <Compile Include=".Utils\ItemOrEnumerable.cs" />
     <Compile Include="Collections\Updates\CollectionBaseOperation.cs" />
     <Compile Include="Collections\Updates\CollectionInsertBatchOperation.cs" />
@@ -56,7 +56,7 @@
     <Compile Include="Lists\Updates\ListUpdatesAggregator.cs" />
     <Compile Include="Lists\ObservableList.cs" />
     <Compile Include="CollectionExtensions.cs" />
-    <Compile Include=".Utils\ListToDataAdapter.cs" />
+    <Compile Include=".Utils\ListToQueryAdapter.cs" />
     <Compile Include="ListExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Lists\Updates\ListBaseOperation.cs" />
