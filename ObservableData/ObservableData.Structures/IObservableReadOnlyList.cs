@@ -5,11 +5,11 @@ using ObservableData.Querying.Core;
 
 namespace ObservableData.Structures
 {
-    public interface IObservableReadOnlyList<T> : IReadOnlyList<T>
+    public interface IObservableReadOnlyList<out T> : IReadOnlyList<T>, IObservableReadOnlyCollection<T>
     {
         new int Count { get; }
 
         [NotNull]
-        IObservable<IUpdate<ListOperation<T>>> Updates { get; }
+        new IObservable<IUpdate<IListOperation<T>>> Updates { get; }
     }
 }

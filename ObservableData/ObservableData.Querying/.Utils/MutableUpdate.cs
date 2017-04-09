@@ -1,25 +1,28 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace ObservableData.Querying.Utils
 {
-    public class MutableUpdate
+    public struct ThreadId
     {
         private readonly int? _threadId;
 
-        protected MutableUpdate()
+        public ThreadId(int threadId)
         {
-            _threadId = Environment.CurrentManagedThreadId;
+            _threadId = threadId;
         }
 
-        protected void CheckAccess()
+        public static ThreadId FromCurrent()
+        {
+            return new ThreadId(Environment.CurrentManagedThreadId);
+        }
+
+        [Pure]
+        public void CheckIsCurrent()
         {
             if (_threadId != Environment.CurrentManagedThreadId)
             {
-                if (_threadId == null)
-                {
-                    throw new ObjectDisposedException("object is diposed");
-                }
-                throw new InvalidOperationException("object is used from incorrect thread");
+                throw new InvalidOperationException("incorrect thread");
             }
         }
     }

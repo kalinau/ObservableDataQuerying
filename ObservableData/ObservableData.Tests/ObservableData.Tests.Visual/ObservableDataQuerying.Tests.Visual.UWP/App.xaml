@@ -1,8 +1,0 @@
-﻿<Application
-    x:Class="ObservableDataQuerying.Tests.Visual.UWP.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ObservableDataQuerying.Tests.Visual.UWP"
-    RequestedTheme="Light">
-
-</Application>

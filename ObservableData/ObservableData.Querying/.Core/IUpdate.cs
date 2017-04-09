@@ -5,7 +5,7 @@ namespace ObservableData.Querying.Core
 {
     public interface IUpdate<out T>
     {
-        [NotNull]
+        [NotNull, ItemNotNull]
         IEnumerable<T> Operations();
 
         void Lock();

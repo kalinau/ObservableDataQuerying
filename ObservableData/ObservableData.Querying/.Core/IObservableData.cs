@@ -10,10 +10,10 @@ namespace ObservableData.Querying.Core
         void IgnoreEfficiency();
 
         [NotNull]
-        IDisposable Subscribe([NotNull] IObserver<IUpdate<SetOperation<T>>> observer);
+        IDisposable Subscribe([NotNull] IObserver<IUpdate<CollectionOperation<T>>> observer);
 
         [NotNull]
-        IDisposable Subscribe([NotNull] IObserver<IUpdate<SetOperation<T>>> observer, out IReadOnlyCollection<T> mutableState);
+        IDisposable Subscribe([NotNull] IObserver<IUpdate<CollectionOperation<T>>> observer, out IReadOnlyCollection<T> mutableState);
 
         [NotNull]
         IDisposable Subscribe([NotNull] IObserver<IUpdate<ListOperation<T>>> observer);

@@ -5,9 +5,9 @@ using ObservableData.Querying.Core;
 
 namespace ObservableData.Structures
 {
-    public interface IObservableReadOnlyCollection<T> :IReadOnlyCollection<T>
+    public interface IObservableReadOnlyCollection<out T> : IReadOnlyCollection<T>
     {
         [NotNull]
-        IObservable<IUpdate<SetOperation<T>>> Updates { get; }
+        IObservable<IUpdate<ICollectionOperation<T>>> Updates { get; }
     }
 }

@@ -25,15 +25,15 @@ namespace ObservableData.Querying.Where.Immutable
             _isWarningDisabled = true;
         }
 
-        public IDisposable Subscribe(IObserver<IUpdate<SetOperation<T>>> observer)
+        public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<T>>> observer)
         {
-            var adapter = new SetObserverAdater(observer, _func);
+            var adapter = new CollectionObserverAdater(observer, _func);
             return _previous.Subscribe(adapter);
         }
 
-        public IDisposable Subscribe(IObserver<IUpdate<SetOperation<T>>> observer, out IReadOnlyCollection<T> mutableState)
+        public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<T>>> observer, out IReadOnlyCollection<T> mutableState)
         {
-            var adapter = new SetObserverAdater(observer, _func);
+            var adapter = new CollectionObserverAdater(observer, _func);
 
             var result = _previous.Subscribe(adapter, out var previousState);
             mutableState = new CollectionAdapter(previousState, _func);
@@ -52,16 +52,16 @@ namespace ObservableData.Querying.Where.Immutable
             throw new NotImplementedException();
         }
 
-        private sealed class SetObserverAdater : SetObserverAdapter<T, T>
+        private sealed class CollectionObserverAdater : CollectionObserverAdapter<T, T>
         {
             [NotNull] private readonly Func<T, bool> _func;
 
-            public SetObserverAdater([NotNull] IObserver<IUpdate<SetOperation<T>>> adaptee, [NotNull] Func<T, bool> func) : base(adaptee)
+            public CollectionObserverAdater([NotNull] IObserver<IUpdate<CollectionOperation<T>>> adaptee, [NotNull] Func<T, bool> func) : base(adaptee)
             {
                 _func = func;
             }
 
-            protected override IUpdate<SetOperation<T>> HandleValue([NotNull] IUpdate<SetOperation<T>> value)
+            protected override IUpdate<CollectionOperation<T>> HandleValue([NotNull] IUpdate<CollectionOperation<T>> value)
             {
                 return new WhereByImmutableCollectionUpdate<T>(value, _func);
             }

@@ -48,9 +48,9 @@ namespace ObservableData.Querying.Utils.Adapters
         public void Lock() => _adaptee.Lock();
     }
 
-    public abstract class SetUpdateAdapter<TIn, TOut> : UpdateAdapter<SetOperation<TIn>, SetOperation<TOut>>
+    public abstract class CollectionUpdateAdapter<TIn, TOut> : UpdateAdapter<CollectionOperation<TIn>, CollectionOperation<TOut>>
     {
-        protected SetUpdateAdapter([NotNull] IUpdate<SetOperation<TIn>> adaptee) : base(adaptee)
+        protected CollectionUpdateAdapter([NotNull] IUpdate<CollectionOperation<TIn>> adaptee) : base(adaptee)
         {
         }
     }
@@ -94,9 +94,9 @@ namespace ObservableData.Querying.Utils.Adapters
         protected override TOut HandleValue(TIn value) => _handler(value);
     }
 
-    public abstract class SetObserverAdapter<TIn, TOut> : ObserverAdapter<IUpdate<SetOperation<TIn>>, IUpdate<SetOperation<TOut>>>
+    public abstract class CollectionObserverAdapter<TIn, TOut> : ObserverAdapter<IUpdate<CollectionOperation<TIn>>, IUpdate<CollectionOperation<TOut>>>
     {
-        protected SetObserverAdapter([NotNull] IObserver<IUpdate<SetOperation<TOut>>> adaptee) : base(adaptee)
+        protected CollectionObserverAdapter([NotNull] IObserver<IUpdate<CollectionOperation<TOut>>> adaptee) : base(adaptee)
         {
         }
     }
@@ -109,15 +109,15 @@ namespace ObservableData.Querying.Utils.Adapters
         }
     }
 
-    public sealed class SetAnonymousObserverAdapter<TIn, TOut> : AnonymousObserverAdapter<IUpdate<SetOperation<TIn>>, IUpdate<SetOperation<TOut>>>
-    {
-        public SetAnonymousObserverAdapter(
-            [NotNull] IObserver<IUpdate<SetOperation<TOut>>> adaptee,
-            [NotNull] Func<IUpdate<SetOperation<TIn>>, IUpdate<SetOperation<TOut>>> handler) 
-            : base(adaptee, handler)
-        {
-        }
-    }
+    //public sealed class SetAnonymousObserverAdapter<TIn, TOut> : AnonymousObserverAdapter<IUpdate<CollectionOperation<TIn>>, IUpdate<CollectionOperation<TOut>>>
+    //{
+    //    public SetAnonymousObserverAdapter(
+    //        [NotNull] IObserver<IUpdate<CollectionOperation<TOut>>> adaptee,
+    //        [NotNull] Func<IUpdate<CollectionOperation<TIn>>, IUpdate<CollectionOperation<TOut>>> handler) 
+    //        : base(adaptee, handler)
+    //    {
+    //    }
+    //}
 
     public sealed class ListAnonymousObserverAdapter<TIn, TOut> :
         AnonymousObserverAdapter<IUpdate<ListOperation<TIn>>, IUpdate<ListOperation<TOut>>>
@@ -127,22 +127,22 @@ namespace ObservableData.Querying.Utils.Adapters
         }
     }
 
-    public static class DataObserver
-    {
-        [NotNull]
-        public static IObserver<IUpdate<SetOperation<TIn>>> Create<TIn, TOut>(
-            [NotNull] IObserver<IUpdate<SetOperation<TOut>>> adaptee,
-            [NotNull] Func<IUpdate<SetOperation<TIn>>, IUpdate<SetOperation<TOut>>> handler)
-        {
-            return new SetAnonymousObserverAdapter<TIn, TOut>(adaptee, handler);
-        }
+    //public static class DataObserver
+    //{
+    //    [NotNull]
+    //    public static IObserver<IUpdate<CollectionOperation<TIn>>> Create<TIn, TOut>(
+    //        [NotNull] IObserver<IUpdate<CollectionOperation<TOut>>> adaptee,
+    //        [NotNull] Func<IUpdate<CollectionOperation<TIn>>, IUpdate<CollectionOperation<TOut>>> handler)
+    //    {
+    //        return new SetAnonymousObserverAdapter<TIn, TOut>(adaptee, handler);
+    //    }
 
-        [NotNull]
-        public static IObserver<IUpdate<ListOperation<TIn>>> Create<TIn, TOut>(
-            [NotNull] IObserver<IUpdate<ListOperation<TOut>>> adaptee,
-            [NotNull] Func<IUpdate<ListOperation<TIn>>, IUpdate<ListOperation<TOut>>> handler)
-        {
-            return new ListAnonymousObserverAdapter<TIn, TOut>(adaptee, handler);
-        }
-    }
+    //    [NotNull]
+    //    public static IObserver<IUpdate<ListOperation<TIn>>> Create<TIn, TOut>(
+    //        [NotNull] IObserver<IUpdate<ListOperation<TOut>>> adaptee,
+    //        [NotNull] Func<IUpdate<ListOperation<TIn>>, IUpdate<ListOperation<TOut>>> handler)
+    //    {
+    //        return new ListAnonymousObserverAdapter<TIn, TOut>(adaptee, handler);
+    //    }
+    //}
 }

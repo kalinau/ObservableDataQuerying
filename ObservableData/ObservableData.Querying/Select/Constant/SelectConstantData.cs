@@ -20,15 +20,15 @@ namespace ObservableData.Querying.Select.Constant
 
         public void IgnoreEfficiency() { }
 
-        public IDisposable Subscribe(IObserver<IUpdate<SetOperation<TOut>>> observer)
+        public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<TOut>>> observer)
         {
-            var adapter = new SetObserverAdater(observer, _func);
+            var adapter = new CollectionObserverAdater(observer, _func);
             return _previous.Subscribe(adapter);
         }
 
-        public IDisposable Subscribe(IObserver<IUpdate<SetOperation<TOut>>> observer, out IReadOnlyCollection<TOut> mutableState)
+        public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<TOut>>> observer, out IReadOnlyCollection<TOut> mutableState)
         {
-            var adapter = new SetObserverAdater(observer, _func);
+            var adapter = new CollectionObserverAdater(observer, _func);
 
             var result = _previous.Subscribe(adapter, out var previousState);
             mutableState = new CollectionAdapter(previousState, _func);
@@ -64,17 +64,17 @@ namespace ObservableData.Querying.Select.Constant
                 new SelectConstantListUpdate<TIn,TOut>(value, _select);
         }
 
-        private sealed class SetObserverAdater : SetObserverAdapter<TIn, TOut>
+        private sealed class CollectionObserverAdater : CollectionObserverAdapter<TIn, TOut>
         {
             [NotNull] private readonly Func<TIn, TOut> _select;
 
-            public SetObserverAdater([NotNull] IObserver<IUpdate<SetOperation<TOut>>> adaptee, [NotNull] Func<TIn, TOut> @select) : base(adaptee)
+            public CollectionObserverAdater([NotNull] IObserver<IUpdate<CollectionOperation<TOut>>> adaptee, [NotNull] Func<TIn, TOut> @select) : base(adaptee)
             {
                 _select = select;
             }
 
-            protected override IUpdate<SetOperation<TOut>> HandleValue([NotNull] IUpdate<SetOperation<TIn>> value) =>
-                new SelectConstantSetUpdate<TIn,TOut>(value, _select);
+            protected override IUpdate<CollectionOperation<TOut>> HandleValue([NotNull] IUpdate<CollectionOperation<TIn>> value) =>
+                new SelectConstantCollectionUpdate<TIn,TOut>(value, _select);
         }
 
         private sealed class CollectionAdapter : CollectionAdapter<TIn, TOut>

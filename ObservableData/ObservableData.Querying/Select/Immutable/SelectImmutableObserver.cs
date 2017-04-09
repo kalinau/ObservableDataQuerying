@@ -8,9 +8,9 @@ using ObservableData.Querying.Utils;
 
 namespace ObservableData.Querying.Select.Immutable
 {
-    public sealed class SelectImmutableObserver<TIn, TOut> : IObserver<IUpdate<SetOperation<TIn>>>, IReadOnlyCollection<TOut>
+    public sealed class SelectImmutableObserver<TIn, TOut> : IObserver<IUpdate<CollectionOperation<TIn>>>, IReadOnlyCollection<TOut>
     {
-        [CanBeNull] private IObserver<IUpdate<SetOperation<TOut>>> _adaptee;
+        [CanBeNull] private IObserver<IUpdate<CollectionOperation<TOut>>> _adaptee;
         [NotNull] private readonly Func<TIn, TOut> _func;
         [NotNull] private readonly Dictionary<TIn, ItemCounter<TOut>> _map = new Dictionary<TIn, ItemCounter<TOut>>();
         private int _count;
@@ -22,14 +22,14 @@ namespace ObservableData.Querying.Select.Immutable
 
         public int Count => _count;
 
-        public void OnNext([NotNull] IUpdate<SetOperation<TIn>> e)
+        public void OnNext([NotNull] IUpdate<CollectionOperation<TIn>> e)
         {
             Dictionary<TIn, TOut> removedMap = null;
             foreach (var update in e.Operations())
             {
                 switch (update.Type)
                 {
-                    case SetOperationType.Add:
+                    case CollectionOperationType.Add:
                         _map.TryGetValue(update.Item, out var existing);
                         if (existing.Count > 0)
                         {
@@ -43,7 +43,7 @@ namespace ObservableData.Querying.Select.Immutable
                         _count++;
                         break;
 
-                    case SetOperationType.Remove:
+                    case CollectionOperationType.Remove:
                         _map.TryGetValue(update.Item, out var removed);
                         if (removed.Count > 1)
                         {
@@ -61,7 +61,7 @@ namespace ObservableData.Querying.Select.Immutable
                         _count--;
                         break;
 
-                    case SetOperationType.Clear:
+                    case CollectionOperationType.Clear:
                         _count = 0;
                         _map.Clear();
                         break;
@@ -72,12 +72,12 @@ namespace ObservableData.Querying.Select.Immutable
             }
             if (_adaptee != null)
             {
-                var updates = new SelectImmutableSetUpdate<TIn, TOut>(e, _map, removedMap);
+                var updates = new SelectImmutableCollectionUpdate<TIn, TOut>(e, _map, removedMap);
                 _adaptee.OnNext(updates);
             }
         }
 
-        public void SetAdaptee([NotNull] IObserver<IUpdate<SetOperation<TOut>>> adaptee)
+        public void SetAdaptee([NotNull] IObserver<IUpdate<CollectionOperation<TOut>>> adaptee)
         {
             _adaptee = adaptee;
         }

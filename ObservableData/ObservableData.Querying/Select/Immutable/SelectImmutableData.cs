@@ -18,14 +18,14 @@ namespace ObservableData.Querying.Select.Immutable
 
         public void IgnoreEfficiency() { }
 
-        public IDisposable Subscribe(IObserver<IUpdate<SetOperation<TOut>>> observer)
+        public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<TOut>>> observer)
         {
             var select = new SelectImmutableObserver<TIn, TOut>(_func);
             select.SetAdaptee(observer);
             return _previous.Subscribe(select);
         }
 
-        public IDisposable Subscribe(IObserver<IUpdate<SetOperation<TOut>>> observer, out IReadOnlyCollection<TOut> mutableState)
+        public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<TOut>>> observer, out IReadOnlyCollection<TOut> mutableState)
         {
             var select = new SelectImmutableObserver<TIn, TOut>(_func);
             var subscription = _previous.Subscribe(select);

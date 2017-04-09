@@ -4,7 +4,7 @@ using ObservableData.Querying.Utils;
 
 namespace ObservableData.Structures.Updates
 {
-    public abstract class EnumerableUpdate<T> : MutableUpdate, IQuickLinkableUpdate<T>
+    public abstract class EnumerableUpdate<T> : IQuickLinkableUpdate<T>
     {
         public abstract void Lock();
 

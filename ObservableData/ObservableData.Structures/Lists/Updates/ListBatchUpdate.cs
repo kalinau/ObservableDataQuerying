@@ -1,23 +1,22 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using ObservableData.Querying.Core;
 
-namespace ObservableData.Structures.Updates
+namespace ObservableData.Structures.Lists.Updates
 {
-    internal class BatchUpdate<T> : IDisposable, IUpdate<T>
+    public class ListBatchUpdate<T> : IDisposable, IListUpdate<T>
     {
-        [NotNull] private readonly Action<BatchUpdate<T>> _onDispose;
-        private IQuickLinkableUpdate<T> _first;
-        private IQuickLinkableUpdate<T> _last;
+        [NotNull] private readonly Action<ListBatchUpdate<T>> _onDispose;
+        private ListBaseOperation<T> _first;
+        private ListBaseOperation<T> _last;
 
-        public BatchUpdate([NotNull] Action<BatchUpdate<T>> onDispose)
+        public ListBatchUpdate([NotNull] Action<ListBatchUpdate<T>> onDispose)
         {
             _onDispose = onDispose;
         }
 
-        public void Add(IQuickLinkableUpdate<T> update)
+        public void Add(ListBaseOperation<T> update)
         {
             if (_last == null)
             {
@@ -52,25 +51,26 @@ namespace ObservableData.Structures.Updates
             }
         }
 
-        public IEnumerable<T> Operations() => this.Enumerate();
-
-        [NotNull]
-        private IEnumerable<T> Enumerate()
+        IEnumerable<ICollectionOperation<T>> IUpdate<ICollectionOperation<T>>.Operations()
         {
             var next = _first;
             while (next != null)
             {
-                if (next.IsSingle)
+                var operation = next.TryGetCollectionOperation();
+                if (operation != null)
                 {
-                    yield return next.First;
+                    yield return operation;
                 }
-                else
-                {
-                    foreach (var update in next.Operations())
-                    {
-                        yield return update;
-                    }
-                }
+                next = next.Next;
+            }
+        }
+
+        IEnumerable<IListOperation<T>> IUpdate<IListOperation<T>>.Operations()
+        {
+            var next = _first;
+            while (next != null)
+            {
+                yield return next;
                 next = next.Next;
             }
         }

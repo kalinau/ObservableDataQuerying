@@ -6,31 +6,31 @@ using ObservableData.Querying.Utils.Adapters;
 
 namespace ObservableData.Querying.Select.Constant
 {
-    public sealed class SelectConstantSetUpdate<TIn, TOut> : SetUpdateAdapter<TIn, TOut>
+    public sealed class SelectConstantCollectionUpdate<TIn, TOut> : CollectionUpdateAdapter<TIn, TOut>
     {
         [NotNull] private readonly Func<TIn, TOut> _func;
 
-        public SelectConstantSetUpdate([NotNull] IUpdate<SetOperation<TIn>> adaptee, [NotNull] Func<TIn, TOut> func) : base(adaptee)
+        public SelectConstantCollectionUpdate([NotNull] IUpdate<CollectionOperation<TIn>> adaptee, [NotNull] Func<TIn, TOut> func) : base(adaptee)
         {
             _func = func;
         }
 
-        protected override IEnumerable<SetOperation<TOut>> Enumerate(IEnumerable<SetOperation<TIn>> adaptee)
+        protected override IEnumerable<CollectionOperation<TOut>> Enumerate(IEnumerable<CollectionOperation<TIn>> adaptee)
         {
             foreach (var update in adaptee)
             {
                 switch (update.Type)
                 {
-                    case SetOperationType.Add:
-                        yield return SetOperation<TOut>.OnAdd(_func(update.Item));
+                    case CollectionOperationType.Add:
+                        yield return CollectionOperation<TOut>.OnAdd(_func(update.Item));
                         break;
 
-                    case SetOperationType.Remove:
-                        yield return SetOperation<TOut>.OnRemove(_func(update.Item));
+                    case CollectionOperationType.Remove:
+                        yield return CollectionOperation<TOut>.OnRemove(_func(update.Item));
                         break;
 
-                    case SetOperationType.Clear:
-                        yield return SetOperation<TOut>.OnClear();
+                    case CollectionOperationType.Clear:
+                        yield return CollectionOperation<TOut>.OnClear();
                         break;
 
                     default:
