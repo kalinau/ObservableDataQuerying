@@ -11,24 +11,28 @@ namespace ObservableData.Querying
     {
         [NotNull]
         public static IQuery<TIn> SelectImmutable<TIn, TOut>(
-            [NotNull] this IQuery<TIn> list, [NotNull] Func<TIn, TOut> func) =>
+            [NotNull] this IQuery<TIn> list, [NotNull] Func<TIn, TOut> func)
+        {
             throw new NotImplementedException();
+        }
 
         [NotNull]
         public static IQuery<T> SelectMutable<T>(
-            [NotNull] this IQuery<T> list) =>
+            [NotNull] this IQuery<T> list)
+        {
             throw new NotImplementedException();
+        }
 
         [NotNull]
         public static IQuery<TOut> SelectConstant<TIn, TOut>(
             [NotNull] this IQuery<TIn> data,
-            [NotNull] Func<TIn, TOut> func) => 
+            [NotNull] Func<TIn, TOut> func) =>
             new SelectConstantQuery<TIn, TOut>(data, func);
 
         [NotNull]
         public static IQuery<T> WhereImmutable<T>(
             [NotNull] this IQuery<T> data,
-            [NotNull] Func<T, bool> func) => 
+            [NotNull] Func<T, bool> func) =>
             new WhereByImmutableData<T>(data, func);
 
         [NotNull]

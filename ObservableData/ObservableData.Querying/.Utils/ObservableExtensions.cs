@@ -73,7 +73,8 @@ namespace ObservableData.Querying.Utils
 
             public void OnNext(T value)
             {
-                _observer.TryGetTarget(out var o);
+                IObserver<T> o;
+                _observer.TryGetTarget(out o);
                 if (o != null)
                 {
                     o.OnNext(value);
@@ -86,14 +87,16 @@ namespace ObservableData.Querying.Utils
 
             public void OnError(Exception exception)
             {
-                _observer.TryGetTarget(out var o);
+                IObserver<T> o;
+                _observer.TryGetTarget(out o);
                 o?.OnError(exception);
                 this.Dispose();
             }
 
             public void OnCompleted()
             {
-                _observer.TryGetTarget(out var o);
+                IObserver<T> o;
+                _observer.TryGetTarget(out o);
                 o?.OnCompleted();
                 this.Dispose();
             }

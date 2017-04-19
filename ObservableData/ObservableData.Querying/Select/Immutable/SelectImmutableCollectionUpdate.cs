@@ -48,12 +48,19 @@ namespace ObservableData.Querying.Select.Immutable
             {
                 switch (update.Type)
                 {
+
                     case CollectionOperationType.Add:
-                        if (_map.TryGetValue(update.Item, out var counter))
+
+                        ItemCounter<TOut> counter;
+                        TOut addedItem;
+                        TOut removedItem;
+
+                        if (_map.TryGetValue(update.Item, out  counter))
                         {
                             yield return CollectionOperation<TOut>.OnAdd(counter.Item);
                         }
-                        else if (_removedItems != null && _removedItems.TryGetValue(update.Item, out var addedItem))
+                       
+                        else if (_removedItems != null && _removedItems.TryGetValue(update.Item, out addedItem))
                         {
                             yield return CollectionOperation<TOut>.OnAdd(addedItem);
                         }
@@ -64,7 +71,7 @@ namespace ObservableData.Querying.Select.Immutable
                         break;
 
                     case CollectionOperationType.Remove:
-                        if (_removedItems != null && _removedItems.TryGetValue(update.Item, out var removedItem))
+                        if (_removedItems != null && _removedItems.TryGetValue(update.Item, out removedItem))
                         {
                             yield return CollectionOperation<TOut>.OnAdd(removedItem);
                         }
