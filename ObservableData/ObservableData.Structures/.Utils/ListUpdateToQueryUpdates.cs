@@ -42,6 +42,7 @@ namespace ObservableData.Structures.Utils
 
         private static ItemOrEnumerable<ListOperation<T>> OnInsert([NotNull] IListInsertOperation<T> insert) =>
             new ItemOrEnumerable<ListOperation<T>>(Enumerate(insert));
+
         private static ItemOrEnumerable<ListOperation<T>> OnRemove([NotNull] IListRemoveOperation<T> remove) =>
             new ItemOrEnumerable<ListOperation<T>>(ListOperation<T>.OnRemove(remove.Item, remove.Index));
 
