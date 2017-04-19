@@ -29,7 +29,8 @@ namespace ObservableData.Querying.Select.Constant
         {
             var adapter = new CollectionObserverAdater(observer, _func);
 
-            var result = _previous.Subscribe(adapter, out var previousState);
+            IReadOnlyCollection<TIn> previousState;
+            var result = _previous.Subscribe(adapter, out  previousState);
             mutableState = new CollectionAdapter(previousState, _func);
             return result;
         }
@@ -44,7 +45,8 @@ namespace ObservableData.Querying.Select.Constant
         {
             var adapter = new ListObserverAdater(observer, this._func);
 
-            var result = _previous.Subscribe(adapter, out var previousState);
+            IReadOnlyList<TIn> previousState;
+            var result = _previous.Subscribe(adapter, out previousState);
             mutableState = new ListAdapter(previousState, _func);
             return result;
         }

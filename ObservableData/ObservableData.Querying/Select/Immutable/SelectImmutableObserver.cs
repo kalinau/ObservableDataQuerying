@@ -29,7 +29,8 @@ namespace ObservableData.Querying.Select.Immutable
                 switch (update.Type)
                 {
                     case CollectionOperationType.Add:
-                        _map.TryGetValue(update.Item, out var existing);
+                        ItemCounter<TOut> existing;
+                        _map.TryGetValue(update.Item, out existing);
                         if (existing.Count > 0)
                         {
                             _map[update.Item] = new ItemCounter<TOut>(existing.Item, existing.Count + 1);
@@ -43,7 +44,8 @@ namespace ObservableData.Querying.Select.Immutable
                         break;
 
                     case CollectionOperationType.Remove:
-                        _map.TryGetValue(update.Item, out var removed);
+                        ItemCounter<TOut> removed;
+                        _map.TryGetValue(update.Item, out removed);
                         if (removed.Count > 1)
                         {
                             _map[update.Item] = new ItemCounter<TOut>(removed.Item, removed.Count - 1);
@@ -83,7 +85,8 @@ namespace ObservableData.Querying.Select.Immutable
 
         private TOut Select(TIn item, Dictionary<TIn, TOut> alreadyRemoved)
         {
-            if (alreadyRemoved == null || !alreadyRemoved.TryGetValue(item, out var result))
+            TOut result;
+            if (alreadyRemoved == null || !alreadyRemoved.TryGetValue(item, out result))
             {
                 result = _func(item);
             }

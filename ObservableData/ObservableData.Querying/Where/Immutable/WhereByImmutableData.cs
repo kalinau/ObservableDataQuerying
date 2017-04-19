@@ -34,7 +34,8 @@ namespace ObservableData.Querying.Where.Immutable
         {
             var adapter = new CollectionObserverAdater(observer, _func);
 
-            var result = _previous.Subscribe(adapter, out var previousState);
+            IReadOnlyCollection<T> previousState;
+            var result = _previous.Subscribe(adapter, out previousState);
             mutableState = new CollectionAdapter(previousState, _func);
             return result;
         }
