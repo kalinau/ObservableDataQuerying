@@ -2,22 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using ObservableData.Querying.Utils.Adapters.ToCollection;
+using ObservableData.Querying.Utils.Adapters;
 
 namespace ObservableData.Querying.Select.Constant
 {
-    public sealed class SelectConstantCollection<TIn, TOut> : LazyCollectionAdapter<TIn, TOut>
+    internal sealed class SelectConstantCollection<TIn, TOut> : CollectionAdapter<TIn, TOut>
     {
-        [NotNull] private readonly Func<TIn, TOut> _func;
+        [NotNull] private readonly Func<TIn, TOut> _select;
 
-        public SelectConstantCollection(
-            [NotNull] IReadOnlyCollection<TIn> source,
-            [NotNull] Func<TIn, TOut> func)
-            :base(source)
+        public SelectConstantCollection([NotNull] IReadOnlyCollection<TIn> source, [NotNull] Func<TIn, TOut> select) : base(source)
         {
-            _func = func;
+            _select = @select;
         }
 
-        protected override IEnumerable<TOut> Enumerate(IEnumerable<TIn> source) => source.Select(_func);
+        protected override IEnumerable<TOut> Enumerate(IEnumerable<TIn> source) => source.Select(_select);
     }
 }

@@ -25,7 +25,7 @@ namespace ObservableData.Querying.Compatibility
 
         public IEnumerator<T> GetEnumerator() => _state.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         public int Count => _state.Count;
 
@@ -41,34 +41,37 @@ namespace ObservableData.Querying.Compatibility
             {
                 if (update.Type == ListOperationType.Clear)
                 {
-                    OnClear();
+                    this.OnClear();
                     break;
                 }
 
                 switch (update.Type)
                 {
                     case ListOperationType.Add:
-                        OnAdd(update);
+                        this.OnAdd(update);
                         break;
 
                     case ListOperationType.Remove:
-                        OnRemove(update);
+                        this.OnRemove(update);
                         break;
 
                     case ListOperationType.Move:
-                        OnMove(update);
+                        this.OnMove(update);
                         break;
 
                     case ListOperationType.Replace:
-                        OnReplace(update);
+                        this.OnReplace(update);
                         break;
 
                     case ListOperationType.Clear:
+                        this.OnClear();
+                        break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
-            OnPropertyChanged(nameof(Count));
+            this.OnPropertyChanged(nameof(this.Count));
         }
 
         private void OnMove(ListOperation<T> update)
@@ -112,7 +115,7 @@ namespace ObservableData.Querying.Compatibility
         [NotifyPropertyChangedInvocator]
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

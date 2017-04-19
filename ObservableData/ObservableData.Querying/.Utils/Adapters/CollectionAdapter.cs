@@ -15,9 +15,9 @@ namespace ObservableData.Querying.Utils.Adapters
 
         public int Count => _source.Count;
 
-        public IEnumerator<TOut> GetEnumerator() => Enumerate(_source).GetEnumerator();
+        public IEnumerator<TOut> GetEnumerator() => this.Enumerate(_source).GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         [NotNull]
         protected abstract IEnumerable<TOut> Enumerate(IEnumerable<TIn> source);

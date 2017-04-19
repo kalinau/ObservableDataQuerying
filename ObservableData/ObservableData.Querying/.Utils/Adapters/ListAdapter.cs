@@ -16,14 +16,14 @@ namespace ObservableData.Querying.Utils.Adapters
 
         public int Count => _source.Count;
 
-        public IEnumerator<TOut> GetEnumerator() => Enumerate(_source).GetEnumerator();
+        public IEnumerator<TOut> GetEnumerator() => this.Enumerate(_source).GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
-        public TOut this[int index] => Select(_source[index]);
+        public TOut this[int index] => this.Select(_source[index]);
 
         [NotNull]
-        protected abstract IEnumerable<TOut> Enumerate(IEnumerable<TIn> source);
+        protected abstract IEnumerable<TOut> Enumerate([NotNull] IEnumerable<TIn> source);
 
         protected abstract TOut Select(TIn item);
     }
@@ -39,7 +39,7 @@ namespace ObservableData.Querying.Utils.Adapters
             _adaptee = adaptee;
         }
 
-        public IEnumerable<TOut> Operations() => Enumerate(_adaptee.Operations());
+        public IEnumerable<TOut> Operations() => this.Enumerate(_adaptee.Operations());
 
         [NotNull]
         protected abstract IEnumerable<TOut> Enumerate([NotNull] IEnumerable<TIn> adaptee);
@@ -79,20 +79,6 @@ namespace ObservableData.Querying.Utils.Adapters
         protected abstract TOut HandleValue(TIn value);
     }
 
-    public class AnonymousObserverAdapter<TIn, TOut> : ObserverAdapter<TIn, TOut>
-    {
-        [NotNull] private readonly Func<TIn, TOut> _handler;
-
-        public AnonymousObserverAdapter(
-            [NotNull] IObserver<TOut> adaptee,
-            [NotNull] Func<TIn, TOut> handler) : base(adaptee)
-        {
-            _handler = handler;
-        }
-
-        protected override TOut HandleValue(TIn value) => _handler(value);
-    }
-
     public abstract class CollectionObserverAdapter<TIn, TOut> : ObserverAdapter<IUpdate<CollectionOperation<TIn>>, IUpdate<CollectionOperation<TOut>>>
     {
         protected CollectionObserverAdapter([NotNull] IObserver<IUpdate<CollectionOperation<TOut>>> adaptee) : base(adaptee)
@@ -107,41 +93,4 @@ namespace ObservableData.Querying.Utils.Adapters
         {
         }
     }
-
-    //public sealed class SetAnonymousObserverAdapter<TIn, TOut> : AnonymousObserverAdapter<IUpdate<CollectionOperation<TIn>>, IUpdate<CollectionOperation<TOut>>>
-    //{
-    //    public SetAnonymousObserverAdapter(
-    //        [NotNull] IObserver<IUpdate<CollectionOperation<TOut>>> adaptee,
-    //        [NotNull] Func<IUpdate<CollectionOperation<TIn>>, IUpdate<CollectionOperation<TOut>>> handler) 
-    //        : base(adaptee, handler)
-    //    {
-    //    }
-    //}
-
-    public sealed class ListAnonymousObserverAdapter<TIn, TOut> :
-        AnonymousObserverAdapter<IUpdate<ListOperation<TIn>>, IUpdate<ListOperation<TOut>>>
-    {
-        public ListAnonymousObserverAdapter([NotNull] IObserver<IUpdate<ListOperation<TOut>>> adaptee, [NotNull] Func<IUpdate<ListOperation<TIn>>, IUpdate<ListOperation<TOut>>> handler) : base(adaptee, handler)
-        {
-        }
-    }
-
-    //public static class DataObserver
-    //{
-    //    [NotNull]
-    //    public static IObserver<IUpdate<CollectionOperation<TIn>>> Create<TIn, TOut>(
-    //        [NotNull] IObserver<IUpdate<CollectionOperation<TOut>>> adaptee,
-    //        [NotNull] Func<IUpdate<CollectionOperation<TIn>>, IUpdate<CollectionOperation<TOut>>> handler)
-    //    {
-    //        return new SetAnonymousObserverAdapter<TIn, TOut>(adaptee, handler);
-    //    }
-
-    //    [NotNull]
-    //    public static IObserver<IUpdate<ListOperation<TIn>>> Create<TIn, TOut>(
-    //        [NotNull] IObserver<IUpdate<ListOperation<TOut>>> adaptee,
-    //        [NotNull] Func<IUpdate<ListOperation<TIn>>, IUpdate<ListOperation<TOut>>> handler)
-    //    {
-    //        return new ListAnonymousObserverAdapter<TIn, TOut>(adaptee, handler);
-    //    }
-    //}
 }

@@ -24,11 +24,11 @@ namespace ObservableData.Querying.Where.Immutable
             _isWarningDisabled = true;
         }
 
-        //public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<T>>> observer)
-        //{
-        //    var adapter = new CollectionObserverAdater(observer, _func);
-        //    return _previous.Subscribe(adapter);
-        //}
+        public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<T>>> observer)
+        {
+            var adapter = new CollectionObserverAdater(observer, _func);
+            return _previous.Subscribe(adapter);
+        }
 
         public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<T>>> observer, out IReadOnlyCollection<T> mutableState)
         {

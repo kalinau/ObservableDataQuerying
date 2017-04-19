@@ -28,9 +28,9 @@ namespace ObservableData.Querying
             return new ListOperation<T>(ListOperationType.Remove, item, default(T), index, default(int));
         }
 
-        public static ListOperation<T> OnMove(T item, int index, int fromIndex)
+        public static ListOperation<T> OnMove(T item, int index, int originalIndex)
         {
-            return new ListOperation<T>(ListOperationType.Move, item, default(T), index, fromIndex);
+            return new ListOperation<T>(ListOperationType.Move, item, default(T), index, originalIndex);
         }
 
         public static ListOperation<T> OnReplace(T item, T changedItem, int index)

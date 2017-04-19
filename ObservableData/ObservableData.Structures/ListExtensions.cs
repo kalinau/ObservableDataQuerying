@@ -14,33 +14,5 @@ namespace ObservableData.Structures
         public static IObservable<IUpdate<IListOperation<T>>> AsObservable<T>(
             [NotNull] this IObservableReadOnlyList<T> list) =>
             list.Updates.StartWith(new ListInsertBatchOperation<T>(list, 0));
-
-        [NotNull]
-        public static IQuery<T> AsQuery<T>(
-            [NotNull] this IObservableReadOnlyList<T> list) => 
-            new ListToQueryAdapter<T>(list);
-
-        [NotNull]
-        public static IEnumerable<T> AsBindableList<T>(
-            [NotNull] this IObservableReadOnlyList<T> list) =>
-            list.AsQuery().AsBindableList();
-
-        [NotNull]
-        public static IQuery<TIn> SelectImmutable<TIn, TOut>(
-            [NotNull] this IObservableReadOnlyList<TIn> list,
-            [NotNull] Func<TIn, TOut> func) =>
-            list.AsQuery().SelectImmutable(func);
-
-        [NotNull]
-        public static IQuery<TOut> SelectConstant<TIn, TOut>(
-            [NotNull] this IObservableReadOnlyList<TIn> list,
-            [NotNull] Func<TIn, TOut> func) =>
-            list.AsQuery().SelectConstant(func);
-
-        [NotNull]
-        public static IQuery<TIn> WhereImmutable<TIn>(
-            [NotNull] this IObservableReadOnlyList<TIn> list,
-            [NotNull] Func<TIn, bool> func) =>
-            list.AsQuery().WhereImmutable(func);
     }
 }

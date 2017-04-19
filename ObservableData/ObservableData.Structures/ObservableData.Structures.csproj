@@ -33,11 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include=".Utils\CollectionUpdateToQueryUpdates.cs" />
-    <Compile Include=".Utils\ListUpdateToQueryUpdates.cs" />
     <Compile Include=".Utils\ItemOrEnumerable.cs" />
+    <Compile Include=".Utils\ThreadId.cs" />
     <Compile Include="Collections\Updates\CollectionBaseOperation.cs" />
     <Compile Include="Collections\Updates\CollectionInsertBatchOperation.cs" />
+    <Compile Include="IUpdate.cs" />
     <Compile Include="Lists\Updates\IListUpdate.cs" />
     <Compile Include="Lists\Updates\ListBatchUpdate.cs" />
     <Compile Include="Lists\Updates\ListIndex.cs" />
@@ -56,7 +56,6 @@
     <Compile Include="Lists\Updates\ListUpdatesAggregator.cs" />
     <Compile Include="Lists\ObservableList.cs" />
     <Compile Include="CollectionExtensions.cs" />
-    <Compile Include=".Utils\ListToQueryAdapter.cs" />
     <Compile Include="ListExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Lists\Updates\ListBaseOperation.cs" />
@@ -64,12 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ObservableData.Querying\ObservableData.Querying.csproj">
-      <Project>{3f528850-6745-49ed-b71a-2fd0794d45cd}</Project>
-      <Name>ObservableData.Querying</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

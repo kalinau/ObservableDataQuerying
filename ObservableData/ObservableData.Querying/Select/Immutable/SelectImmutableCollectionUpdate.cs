@@ -1,48 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using JetBrains.Annotations;
 using ObservableData.Querying.Utils;
 
 namespace ObservableData.Querying.Select.Immutable
 {
-    public sealed class SelectImmutableCollectionUpdate<TIn, TOut> :  IUpdate<CollectionOperation<TOut>>
+    public sealed class SelectImmutableCollectionUpdate<TIn, TOut> : SelectImmutableUpdate<TIn, TOut, CollectionOperation<TOut>>
     {
         [NotNull] private readonly IUpdate<CollectionOperation<TIn>> _adaptee;
-        [NotNull] private readonly IReadOnlyDictionary<TIn, ItemCounter<TOut>> _map;
-        [CanBeNull] private readonly IReadOnlyDictionary<TIn, TOut> _removedItems;
-
-
-        [CanBeNull] private IEnumerable<CollectionOperation<TOut>> _locked;
-        private ThreadId _threadId;
 
         public SelectImmutableCollectionUpdate(
             [NotNull] IUpdate<CollectionOperation<TIn>> adaptee,
             [NotNull] IReadOnlyDictionary<TIn, ItemCounter<TOut>> map, 
             [CanBeNull] IReadOnlyDictionary<TIn, TOut> removedItems)
+            :base(map, removedItems)
         {
             _adaptee = adaptee;
-            _map = map;
-            _removedItems = removedItems;
-            _threadId = ThreadId.FromCurrent();
         }
 
-        public void Lock()
-        {
-            if (_locked != null) return;
-            _threadId.CheckIsCurrent();
-            _locked = this.Enumerate().ToArray();
-        }
-
-        public IEnumerable<CollectionOperation<TOut>> Operations()
-        {
-            if (_locked != null) return _locked;
-            _threadId.CheckIsCurrent();
-            return this.Enumerate();
-        }
-
-        [NotNull]
-        private IEnumerable<CollectionOperation<TOut>> Enumerate()
+        protected override IEnumerable<CollectionOperation<TOut>> Enumerate()
         {
             foreach (var update in _adaptee.Operations())
             {
@@ -50,36 +26,13 @@ namespace ObservableData.Querying.Select.Immutable
                 {
 
                     case CollectionOperationType.Add:
-
-                        ItemCounter<TOut> counter;
-                        TOut addedItem;
-                        TOut removedItem;
-
-                        if (_map.TryGetValue(update.Item, out  counter))
-                        {
-                            yield return CollectionOperation<TOut>.OnAdd(counter.Item);
-                        }
-                       
-                        else if (_removedItems != null && _removedItems.TryGetValue(update.Item, out addedItem))
-                        {
-                            yield return CollectionOperation<TOut>.OnAdd(addedItem);
-                        }
-                        else
-                        {
-                            throw new ArgumentOutOfRangeException();
-                        }
+                        yield return CollectionOperation<TOut>.OnAdd(base.Select(update.Item));
                         break;
 
                     case CollectionOperationType.Remove:
-                        if (_removedItems != null && _removedItems.TryGetValue(update.Item, out removedItem))
-                        {
-                            yield return CollectionOperation<TOut>.OnAdd(removedItem);
-                        }
-                        else
-                        {
-                            throw new ArgumentOutOfRangeException();
-                        }
+                        yield return CollectionOperation<TOut>.OnRemove(base.SelectRemoved(update.Item));
                         break;
+
                     case CollectionOperationType.Clear:
                         yield return CollectionOperation<TOut>.OnClear();
                         break;

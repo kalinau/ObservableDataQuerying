@@ -36,7 +36,8 @@ namespace ObservableData.Querying.Utils
 
         public static bool TryIncreaseCount<TKey, TValue>([NotNull] this Dictionary<TKey, ItemCounter<TValue>> map, TKey key)
         {
-            if (map.TryGetValue(key, out var existing))
+            ItemCounter<TValue> existing;
+            if (map.TryGetValue(key, out existing))
             {
                 map[key] = new ItemCounter<TValue>(existing.Item, existing.Count + 1);
                 return true;
@@ -46,7 +47,8 @@ namespace ObservableData.Querying.Utils
 
         public static uint DecreaseCount<TKey, TValue>([NotNull] this Dictionary<TKey, ItemCounter<TValue>> map, TKey key, out TValue currentValue)
         {
-            if (map.TryGetValue(key, out var existing))
+            ItemCounter<TValue> existing;
+            if (map.TryGetValue(key, out existing))
             {
                 throw new ArgumentOutOfRangeException();
             }

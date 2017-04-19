@@ -10,7 +10,7 @@ namespace ObservableData.Querying.Select.Immutable
         [NotNull] private readonly IQuery<TIn> _previous;
         [NotNull] private readonly Func<TIn, TOut> _func;
 
-        public SelectImmutableQuery([NotNull] Func<TIn, TOut> func, [NotNull] IQuery<TIn> previous)
+        public SelectImmutableQuery([NotNull] IQuery<TIn> previous, [NotNull] Func<TIn, TOut> func)
         {
             _previous = previous;
             _func = func;
@@ -18,34 +18,40 @@ namespace ObservableData.Querying.Select.Immutable
 
         public void IgnoreEfficiency() { }
 
-        //public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<TOut>>> observer)
-        //{
-        //    var select = new SelectImmutableObserver<TIn, TOut>(_func);
-        //    select.SetAdaptee(observer);
-        //    return _previous.Subscribe(select);
-        //}
+        public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<TOut>>> observer)
+        {
+            var map = new Dictionary<TIn, ItemCounter<TOut>>();
+            var select = new SelectImmutableCollectionObserver<TIn, TOut>(observer, _func, map);
+
+            return _previous.Subscribe(select);
+        }
 
         public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<TOut>>> observer, out IReadOnlyCollection<TOut> mutableState)
         {
-            //var map = new Dictionary<TIn, ItemCounter<TOut>>();
-            //var select = new SelectImmutableCollectionObserver<TIn, TOut>(observer, _func, map);
-            //var subscription = _previous.Subscribe(select, out var previousState);
-            //mutableState = new SelectImmutableCollection<TIn, TOut>(previousState, map);
+            var map = new Dictionary<TIn, ItemCounter<TOut>>();
+            var select = new SelectImmutableCollectionObserver<TIn, TOut>(observer, _func, map);
+            var subscription = _previous.Subscribe(select, out var previousState);
+            mutableState = new SelectImmutableCollection<TIn, TOut>(previousState, map);
 
-            //return subscription;
-            mutableState = null;
-            ;
-            return null;
+            return subscription;
         }
 
-        //public IDisposable Subscribe(IObserver<IUpdate<ListOperation<TOut>>> observer)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public IDisposable Subscribe(IObserver<IUpdate<ListOperation<TOut>>> observer)
+        {
+            var map = new Dictionary<TIn, ItemCounter<TOut>>();
+            var select = new SelectImmutableListObserver<TIn,TOut>(observer, _func, map);
+
+            return _previous.Subscribe(select);
+        }
 
         public IDisposable Subscribe(IObserver<IUpdate<ListOperation<TOut>>> observer, out IReadOnlyList<TOut> mutableState)
         {
-            throw new NotImplementedException();
+            var map = new Dictionary<TIn, ItemCounter<TOut>>();
+            var select = new SelectImmutableListObserver<TIn, TOut>(observer, _func, map);
+            var subscription = _previous.Subscribe(select, out var previousState);
+            mutableState = new SelectImmutableList<TIn, TOut>(previousState, map);
+
+            return subscription;
         }
     }
 }
