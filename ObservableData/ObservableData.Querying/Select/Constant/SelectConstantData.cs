@@ -30,7 +30,7 @@ namespace ObservableData.Querying.Select.Constant
             var adapter = new CollectionObserverAdater(observer, _func);
 
             IReadOnlyCollection<TIn> previousState;
-            var result = _previous.Subscribe(adapter, out  previousState);
+            var result = _previous.Subscribe(adapter, out previousState);
             mutableState = new CollectionAdapter(previousState, _func);
             return result;
         }

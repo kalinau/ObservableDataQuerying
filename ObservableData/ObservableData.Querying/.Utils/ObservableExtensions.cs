@@ -30,32 +30,12 @@ namespace ObservableData.Querying.Utils
             var observer = new WeakObserver<T>(o);
             observer.SubscribeTo(source);
 
-            return new WeakSubscription<T>(observer, o);
+            return new KeedAliveDisposableAdapter(observer, o);
         }
 
         public static void KeepAlive<T>([NotNull] this IObservable<T> source, object keepAliveObject)
         {
             source.Subscribe(_ => GC.KeepAlive(keepAliveObject));
-        }
-
-        private sealed class WeakSubscription<T> : IDisposable
-        {
-            private WeakObserver<T> _weakObserver;
-            private object _realObserver;
-
-            public WeakSubscription(WeakObserver<T> weakObserver, object realObserver)
-            {
-                _weakObserver = weakObserver;
-                _realObserver = realObserver;
-            }
-
-            public void Dispose()
-            {
-                GC.KeepAlive(_realObserver);
-                _realObserver = null;
-                _weakObserver?.Dispose();
-                _weakObserver = null;
-            }
         }
 
         private sealed class WeakObserver<T> : IObserver<T>, IDisposable
@@ -66,9 +46,9 @@ namespace ObservableData.Querying.Utils
             [NotNull]
             private readonly WeakReference<IObserver<T>> _observer;
 
-            public WeakObserver(IObserver<T> observer)
+            public WeakObserver(IObserver<T> underlying)
             {
-                _observer = new WeakReference<IObserver<T>>(observer);
+                _observer = new WeakReference<IObserver<T>>(underlying);
             }
 
             public void OnNext(T value)
@@ -111,6 +91,37 @@ namespace ObservableData.Querying.Utils
                 _strongSubscription?.Dispose();
                 _strongSubscription = null;
             }
+        }
+
+        public sealed class KeedAliveDisposableAdapter : IDisposable
+        {
+            private IDisposable _disposable;
+            private object _keepAliveObject;
+
+            public KeedAliveDisposableAdapter(IDisposable disposable, object keepAliveObject)
+            {
+                _disposable = disposable;
+                _keepAliveObject = keepAliveObject;
+            }
+
+            public void Dispose()
+            {
+                GC.KeepAlive(_keepAliveObject);
+                _keepAliveObject = null;
+                _disposable?.Dispose();
+                _disposable = null;
+            }
+        }
+    }
+
+    public static class WeakReferenceExtensions
+    {
+        [CanBeNull]
+        public static T TryGetTarget<T>([NotNull] this WeakReference<T> reference) where T : class
+        {
+            T o;
+            reference.TryGetTarget(out o);
+            return o;
         }
     }
 }
