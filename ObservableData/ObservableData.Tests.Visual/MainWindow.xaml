@@ -47,23 +47,17 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="200" />
             </Grid.ColumnDefinitions>
             <ListView
-                x:Name="ListView"
+                x:Name="SourceList"
+                Grid.Column="0"
+                HorizontalContentAlignment="Stretch"
+                SelectionChanged="OnSelected" />
+            <ListView
+                x:Name="ResultList"
                 Grid.Column="1"
                 HorizontalContentAlignment="Stretch"
-                SelectionChanged="OnSelected">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <TextBlock Text="{Binding Value, Mode=OneWay}" />
-                            <TextBlock HorizontalAlignment="Right" Text="{Binding Index, Mode=OneWay}" />
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                SelectionChanged="OnSelected" />
         </Grid>
     </Grid>
 </Window>

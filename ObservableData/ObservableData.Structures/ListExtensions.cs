@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reactive.Linq;
 using JetBrains.Annotations;
 using ObservableData.Querying;
@@ -20,6 +21,11 @@ namespace ObservableData.Structures
             new ListToQueryAdapter<T>(list);
 
         [NotNull]
+        public static IEnumerable<T> AsBindableList<T>(
+            [NotNull] this IObservableReadOnlyList<T> list) =>
+            list.AsQuery().AsBindableList();
+
+        [NotNull]
         public static IQuery<TIn> SelectImmutable<TIn, TOut>(
             [NotNull] this IObservableReadOnlyList<TIn> list,
             [NotNull] Func<TIn, TOut> func) =>
@@ -32,9 +38,9 @@ namespace ObservableData.Structures
             list.AsQuery().SelectConstant(func);
 
         [NotNull]
-        public static IQuery<TIn> Where<TIn, TCriteria>(
+        public static IQuery<TIn> WhereImmutable<TIn>(
             [NotNull] this IObservableReadOnlyList<TIn> list,
             [NotNull] Func<TIn, bool> func) =>
-            list.AsQuery().Where(func);
+            list.AsQuery().WhereImmutable(func);
     }
 }

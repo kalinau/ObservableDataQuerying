@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using ObservableData.Querying;
 using ObservableData.Tests.Core;
 using ObservableData.Structures;
 using ObservableData.Structures.Lists;
@@ -15,15 +16,18 @@ namespace ObservableData.Tests.Visual
     public partial class MainWindow : Window
     {
         private StringBuilder _stringBuilder = new StringBuilder();
-        private readonly ObservableCollection<TestEntity> _source = new ObservableCollection<TestEntity>();
+        private readonly ObservableList<TestEntity> _source = new ObservableList<TestEntity>();
         private int _index;
         private TestEntity _selected;
 
         public MainWindow()
         {
             InitializeComponent();
-            ListView.ItemsSource = _source;
-            var s = new ObservableList<int>();
+            SourceList.ItemsSource = _source.AsBindableList();
+            ResultList.ItemsSource = _source
+                .SelectConstant(x => x.Value * 2)
+                .WhereImmutable(x => x > 5)
+                .AsBindableList();
         }
 
         private static bool TryGetInt(TextBox textBox, out int value)
@@ -53,7 +57,7 @@ namespace ObservableData.Tests.Visual
             this.Value.Text = string.Empty;
             this.Value.Text = string.Empty;
             this.Button.Content = "Add";
-            this.ListView.SelectedItem = null;
+            this.SourceList.SelectedItem = null;
         }
 
         private void Update()
@@ -81,7 +85,7 @@ namespace ObservableData.Tests.Visual
 
         private void OnSelected(object sender, RoutedEventArgs e)
         {
-            _selected = this.ListView?.SelectedItem as TestEntity;
+            _selected = this.SourceList?.SelectedItem as TestEntity;
             if (_selected == null) return;
 
             this.Value.Text = _selected.Value.ToString();
