@@ -31,6 +31,6 @@ namespace ObservableData.Tests.Core
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public override string ToString() => $"TestEntity: {_value})";
+        public override string ToString() => $"TestEntity: {_value}";
     }
 }

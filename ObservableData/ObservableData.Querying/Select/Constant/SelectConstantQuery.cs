@@ -6,12 +6,12 @@ using ObservableData.Querying.Utils.Adapters;
 
 namespace ObservableData.Querying.Select.Constant
 {
-    public sealed class SelectConstantData<TIn, TOut> : IQuery<TOut>
+    public sealed class SelectConstantQuery<TIn, TOut> : IQuery<TOut>
     {
         [NotNull] private readonly IQuery<TIn> _previous;
         [NotNull] private readonly Func<TIn, TOut> _func;
 
-        public SelectConstantData([NotNull] IQuery<TIn> previous, [NotNull] Func<TIn, TOut> func)
+        public SelectConstantQuery([NotNull] IQuery<TIn> previous, [NotNull] Func<TIn, TOut> func)
         {
             _previous = previous;
             _func = func;
@@ -19,11 +19,11 @@ namespace ObservableData.Querying.Select.Constant
 
         public void IgnoreEfficiency() { }
 
-        public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<TOut>>> observer)
-        {
-            var adapter = new CollectionObserverAdater(observer, _func);
-            return _previous.Subscribe(adapter);
-        }
+        //public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<TOut>>> observer)
+        //{
+        //    var adapter = new CollectionObserverAdater(observer, _func);
+        //    return _previous.Subscribe(adapter);
+        //}
 
         public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<TOut>>> observer, out IReadOnlyCollection<TOut> mutableState)
         {
@@ -35,11 +35,11 @@ namespace ObservableData.Querying.Select.Constant
             return result;
         }
 
-        public IDisposable Subscribe(IObserver<IUpdate<ListOperation<TOut>>> observer)
-        {
-            var adapter = new ListObserverAdater(observer, _func);
-            return _previous.Subscribe(adapter);
-        }
+        //public IDisposable Subscribe(IObserver<IUpdate<ListOperation<TOut>>> observer)
+        //{
+        //    var adapter = new ListObserverAdater(observer, _func);
+        //    return _previous.Subscribe(adapter);
+        //}
 
         public IDisposable Subscribe(IObserver<IUpdate<ListOperation<TOut>>> observer, out IReadOnlyList<TOut> mutableState)
         {

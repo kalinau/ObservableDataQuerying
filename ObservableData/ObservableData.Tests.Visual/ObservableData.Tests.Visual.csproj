@@ -94,6 +94,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ObservableData.Querying\ObservableData.Querying.csproj">
+      <Project>{3f528850-6745-49ed-b71a-2fd0794d45cd}</Project>
+      <Name>ObservableData.Querying</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ObservableData.Structures\ObservableData.Structures.csproj">
       <Project>{2a57421c-29f6-4318-9c08-0cfa2f3270da}</Project>
       <Name>ObservableData.Structures</Name>
