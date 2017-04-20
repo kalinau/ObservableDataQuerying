@@ -48,7 +48,7 @@ namespace ObservableData.Querying.Utils
         public static uint DecreaseCount<TKey, TValue>([NotNull] this Dictionary<TKey, ItemCounter<TValue>> map, TKey key, out TValue currentValue)
         {
             ItemCounter<TValue> existing;
-            if (map.TryGetValue(key, out existing))
+            if (!map.TryGetValue(key, out existing))
             {
                 throw new ArgumentOutOfRangeException();
             }
