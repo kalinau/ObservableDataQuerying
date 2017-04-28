@@ -2,7 +2,7 @@
 
 namespace ObservableData.Structures
 {
-    public interface IObservableList<T> : IObservableReadOnlyList<T>, IBatchCollection<T>, IList<T>
+    public interface IObservableList<T> : IObservableReadOnlyList<T>, IList<T>, IObservableCollection<T>
     {
         void Move(int from, int to);
 
