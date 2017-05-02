@@ -27,6 +27,11 @@ namespace ObservableData.Structures
             list.AsQuery().SelectImmutable(func);
 
         [NotNull]
+        public static IQuery<T> AsWeakQuery<T>(
+            [NotNull] this IObservableReadOnlyList<T> list) =>
+            list.AsQuery().AsWeak();
+
+        [NotNull]
         public static IQuery<TOut> SelectConstant<TIn, TOut>(
             [NotNull] this IObservableReadOnlyList<TIn> list,
             [NotNull] Func<TIn, TOut> func) =>
