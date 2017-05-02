@@ -41,7 +41,8 @@ namespace ObservableData.Querying.Select.Immutable
                         break;
 
                     case CollectionOperationType.Remove:
-                        if (_map.DecreaseCount(update.Item, out var removed) <= 1)
+                        TOut removed;
+                        if (_map.DecreaseCount(update.Item, out removed) <= 1)
                         {
                             if (removedMap == null)
                             {

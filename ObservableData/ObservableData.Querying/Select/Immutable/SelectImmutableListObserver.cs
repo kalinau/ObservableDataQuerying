@@ -57,7 +57,8 @@ namespace ObservableData.Querying.Select.Immutable
 
         private void OnRemove(ListOperation<TIn> update, ref Dictionary<TIn, TOut> removedMap)
         {
-            if (_map.DecreaseCount(update.Item, out var removed) <= 1)
+            TOut removed;
+            if (_map.DecreaseCount(update.Item, out removed) <= 1)
             {
                 if (removedMap == null)
                 {

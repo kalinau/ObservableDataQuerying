@@ -30,7 +30,8 @@ namespace ObservableData.Querying.Select.Immutable
         {
             var map = new Dictionary<TIn, ItemCounter<TOut>>();
             var select = new SelectImmutableCollectionObserver<TIn, TOut>(observer, _func, map);
-            var subscription = _previous.Subscribe(select, out var previousState);
+            IReadOnlyCollection<TIn> previousState;
+            var subscription = _previous.Subscribe(select, out previousState);
             this.FillMap(previousState, map);
             mutableState = new SelectImmutableCollection<TIn, TOut>(previousState, map);
 
@@ -49,7 +50,8 @@ namespace ObservableData.Querying.Select.Immutable
         {
             var map = new Dictionary<TIn, ItemCounter<TOut>>();
             var select = new SelectImmutableListObserver<TIn, TOut>(observer, _func, map);
-            var subscription = _previous.Subscribe(select, out var previousState);
+            IReadOnlyList<TIn> previousState;
+            var subscription = _previous.Subscribe(select, out previousState);
             this.FillMap(previousState, map);
             mutableState = new SelectImmutableList<TIn, TOut>(previousState, map);
 
