@@ -44,7 +44,7 @@ namespace ObservableData.Structures.Lists
 
         public IEnumerator<T> GetEnumerator() => _list.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         public bool Contains(T item) => _list.Contains(item);
 
@@ -53,6 +53,15 @@ namespace ObservableData.Structures.Lists
         public int IndexOf(T item) => _list.IndexOf(item);
 
         public IDisposable StartBatchUpdate() => _subject.StartBatchUpdate();
+
+        public bool Replace(T oldItem, T newItem)
+        {
+            var index = this.IndexOf(oldItem);
+            if (index == -1) return false;
+            _list[index] = newItem;
+            _subject.OnReplace(newItem, oldItem, index);
+            return true;
+        }
 
         public void Add(T item)
         {
