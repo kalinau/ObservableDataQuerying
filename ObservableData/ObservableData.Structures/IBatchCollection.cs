@@ -9,8 +9,8 @@ namespace ObservableData.Structures
         [NotNull]
         IDisposable StartBatchUpdate();
 
-        void Reset([NotNull, InstantHandle] IEnumerable<T> items);
+        void Reset([NotNull, InstantHandle] IReadOnlyCollection<T> items);
 
-        void Add([NotNull, InstantHandle] IEnumerable<T> items);
+        void Add([NotNull, InstantHandle] IReadOnlyCollection<T> items);
     }
 }

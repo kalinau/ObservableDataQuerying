@@ -117,7 +117,7 @@ namespace ObservableData.Structures.Lists
             _subject.OnRemove(item, index);
         }
 
-        public void Reset(IEnumerable<T> items)
+        public void Reset(IReadOnlyCollection<T> items)
         {
             if (_list.Count == 0)
             {
@@ -132,7 +132,7 @@ namespace ObservableData.Structures.Lists
             }
         }
 
-        public void Add(IEnumerable<T> items)
+        public void Add(IReadOnlyCollection<T> items)
         {
             var index = _list.Count;
             _list.AddRange(items);

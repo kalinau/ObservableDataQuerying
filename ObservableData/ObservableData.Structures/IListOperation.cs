@@ -26,7 +26,7 @@ namespace ObservableData.Structures
         int Index { get; }
 
         [NotNull]
-        IEnumerable<T> Items { get; }
+        IReadOnlyCollection<T> Items { get; }
     }
 
     public interface IListRemoveOperation<out T> : IListOperation<T>
@@ -56,6 +56,6 @@ namespace ObservableData.Structures
 
     public interface IListResetOperation<out T> : IListOperation<T>
     {
-        IEnumerable<T> Items { get; }
+        IReadOnlyCollection<T> Items { get; }
     }
 }

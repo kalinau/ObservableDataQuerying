@@ -6,7 +6,7 @@ namespace ObservableData.Structures.Lists.Updates
 {
     public class ListResetOperation<T> : ListInsertBatchOperation<T>, IListResetOperation<T>, ICollectionResetOperation<T>
     {
-        public ListResetOperation([CanBeNull] IEnumerable<T> items) : base(items, 0)
+        public ListResetOperation([CanBeNull] IReadOnlyCollection<T> items) : base(items, 0)
         {
         }
 

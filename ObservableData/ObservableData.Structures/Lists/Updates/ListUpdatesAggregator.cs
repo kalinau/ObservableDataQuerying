@@ -41,7 +41,7 @@ namespace ObservableData.Structures.Lists.Updates
             _subject.OnNext(batch);
         }
 
-        public void OnAdd([NotNull] IEnumerable<T> items, int index)
+        public void OnAdd([NotNull] IReadOnlyCollection<T> items, int index)
         {
             if (ShouldNotify)
             {
@@ -59,7 +59,7 @@ namespace ObservableData.Structures.Lists.Updates
             }
         }
 
-        public void OnReset(IEnumerable<T> items)
+        public void OnReset(IReadOnlyCollection<T> items)
         {
             _batch?.Clear();
             if (ShouldNotify)

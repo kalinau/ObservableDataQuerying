@@ -22,7 +22,7 @@ namespace ObservableData.Structures
     public interface ICollectionInsertOperation<out T> : ICollectionOperation<T>
     {
         [NotNull]
-        IEnumerable<T> Items { get; }
+        IReadOnlyCollection<T> Items { get; }
     }
 
     public interface ICollectionRemoveOperation<out T> : ICollectionOperation<T>
@@ -40,6 +40,6 @@ namespace ObservableData.Structures
     public interface ICollectionResetOperation<out T> : ICollectionOperation<T>
     {
         [CanBeNull]
-        IEnumerable<T> Items { get; }
+        IReadOnlyCollection<T> Items { get; }
     }
 }

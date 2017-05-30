@@ -8,18 +8,18 @@ namespace ObservableData.Structures.Collections.Updates
 {
     public class CollectionInsertBatchOperation<T> : CollectionBaseOperation<T>, ICollectionInsertOperation<T>
     {
-        [NotNull] private readonly IEnumerable<T> _items;
-        [CanBeNull] private IEnumerable<T> _locked;
+        [NotNull] private readonly IReadOnlyCollection<T> _items;
+        [CanBeNull] private IReadOnlyCollection<T> _locked;
 
         private readonly ThreadId _threadId;
 
-        public CollectionInsertBatchOperation([NotNull] IEnumerable<T> items)
+        public CollectionInsertBatchOperation([NotNull] IReadOnlyCollection<T> items)
         {
             _items = items;
             _threadId = ThreadId.FromCurrent();
         }
 
-        public IEnumerable<T> Items
+        public IReadOnlyCollection<T> Items
         {
             get
             {

@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
 namespace ObservableData.Structures.Lists.Updates
 {
-    public class ListInsertItemOperation<T> : ListBaseOperation<T>, IListInsertOperation<T>, ICollectionInsertOperation<T>
+    public class ListInsertItemOperation<T> : 
+        ListBaseOperation<T>, 
+        IListInsertOperation<T>, 
+        ICollectionInsertOperation<T>,
+        IReadOnlyCollection<T>
     {
         private readonly T _item;
         private readonly int _index;
@@ -17,7 +22,7 @@ namespace ObservableData.Structures.Lists.Updates
 
         public int Index => _index;
 
-        public IEnumerable<T> Items => this.Enumerate();
+        public IReadOnlyCollection<T> Items => this;
 
         public override void Lock() { }
 
@@ -48,5 +53,11 @@ namespace ObservableData.Structures.Lists.Updates
         {
             yield return _item;
         }
+
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() => this.Enumerate().GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => this.Enumerate().GetEnumerator();
+
+        int IReadOnlyCollection<T>.Count => 1;
     }
 }

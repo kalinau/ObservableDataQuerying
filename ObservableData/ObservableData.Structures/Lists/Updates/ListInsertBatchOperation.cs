@@ -9,12 +9,12 @@ namespace ObservableData.Structures.Lists.Updates
     public class ListInsertBatchOperation<T> : ListBaseOperation<T>, IListInsertOperation<T>, ICollectionInsertOperation<T>
     {
         private readonly int _index;
-        [NotNull] private readonly IEnumerable<T> _items;
-        [CanBeNull] private IEnumerable<T> _locked;
+        [NotNull] private readonly IReadOnlyCollection<T> _items;
+        [CanBeNull] private IReadOnlyCollection<T> _locked;
 
         private readonly ThreadId _threadId;
 
-        public ListInsertBatchOperation([NotNull] IEnumerable<T> items, int index)
+        public ListInsertBatchOperation([NotNull] IReadOnlyCollection<T> items, int index)
         {
             _items = items;
             _index = index;
@@ -23,7 +23,7 @@ namespace ObservableData.Structures.Lists.Updates
 
         public int Index => _index;
 
-        public IEnumerable<T> Items
+        public IReadOnlyCollection<T> Items
         {
             get
             {
