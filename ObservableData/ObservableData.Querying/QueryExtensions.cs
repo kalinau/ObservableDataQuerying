@@ -47,7 +47,7 @@ namespace ObservableData.Querying
             new QueryAsBindableListAdapter<T>(data);
 
         [NotNull]
-        public static IObservableReadOnlyList<T> AsObservableList<T>(
+        public static QueryAsObservableListAdapter<T> AsObservableList<T>(
             [NotNull] this IQuery<T> query) =>
             new QueryAsObservableListAdapter<T>(query);
     }

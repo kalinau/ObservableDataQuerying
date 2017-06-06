@@ -41,6 +41,7 @@ namespace ObservableData.Querying.Compatibility
         public void Dispose()
         {
             _subscription.Dispose();
+            _subject.Dispose();
         }
 
         public void OnCompleted() => this.Dispose();
