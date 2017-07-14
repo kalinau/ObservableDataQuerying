@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
-namespace ObservableData.Querying.Utils
+namespace ObservableData.Structures.Utils
 {
     public struct ThreadId
     {
@@ -18,6 +19,7 @@ namespace ObservableData.Querying.Utils
         }
 
         [Pure]
+        [SuppressMessage("ReSharper", "PureAttributeOnVoidMethod")]
         public void CheckIsCurrent()
         {
             if (_threadId != Environment.CurrentManagedThreadId)

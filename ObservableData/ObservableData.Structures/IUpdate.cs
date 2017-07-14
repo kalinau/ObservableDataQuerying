@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace ObservableData.Querying
+namespace ObservableData.Structures
 {
     public interface IUpdate<out T>
     {

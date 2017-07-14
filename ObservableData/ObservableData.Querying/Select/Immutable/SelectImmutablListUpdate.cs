@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using ObservableData.Querying.Utils;
+using ObservableData.Structures;
 
 namespace ObservableData.Querying.Select.Immutable
 {

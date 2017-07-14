@@ -4,6 +4,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using ObservableData.Querying.Utils.Adapters;
 using ObservableData.Querying.Utils.Efficiency;
+using ObservableData.Structures;
 
 namespace ObservableData.Querying.Where.Immutable
 {

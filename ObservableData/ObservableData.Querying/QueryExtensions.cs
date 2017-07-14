@@ -6,7 +6,6 @@ using ObservableData.Querying.Select.Constant;
 using ObservableData.Querying.Select.Immutable;
 using ObservableData.Querying.Weak;
 using ObservableData.Querying.Where.Immutable;
-using ObservableData.Structures;
 
 namespace ObservableData.Querying
 {

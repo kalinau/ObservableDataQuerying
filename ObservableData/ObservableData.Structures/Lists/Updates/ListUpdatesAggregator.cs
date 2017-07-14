@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reactive.Subjects;
 using JetBrains.Annotations;
-using ObservableData.Querying;
 
 namespace ObservableData.Structures.Lists.Updates
 {
@@ -43,56 +42,56 @@ namespace ObservableData.Structures.Lists.Updates
 
         public void OnAdd([NotNull] IReadOnlyCollection<T> items, int index)
         {
-            if (ShouldNotify)
+            if (this.ShouldNotify)
             {
                 var update = new ListInsertBatchOperation<T>(items, index);
-                OnNext(update);
+                this.OnNext(update);
             }
         }
 
         public void OnAdd(T item, int index)
         {
-            if (ShouldNotify)
+            if (this.ShouldNotify)
             {
                 var update = new ListInsertItemOperation<T>(item, index);
-                OnNext(update);
+                this.OnNext(update);
             }
         }
 
         public void OnReset(IReadOnlyCollection<T> items)
         {
             _batch?.Clear();
-            if (ShouldNotify)
+            if (this.ShouldNotify)
             {
                 var update = new ListResetOperation<T>(items);
-                OnNext(update);
+                this.OnNext(update);
             }
         }
 
         public void OnMove(T item, int from, int to)
         {
-            if (ShouldNotify)
+            if (this.ShouldNotify)
             {
                 var update = new ListMoveOperation<T>(item, from, to);
-                OnNext(update);
+                this.OnNext(update);
             }
         }
 
         public void OnRemove(T item, int index)
         {
-            if (ShouldNotify)
+            if (this.ShouldNotify)
             {
                 var update = new ListRemoveOperation<T>(item, index);
-                OnNext(update);
+                this.OnNext(update);
             }
         }
 
         public void OnReplace(T value, T changedItem, int index)
         {
-            if (ShouldNotify)
+            if (this.ShouldNotify)
             {
                 var update = new ListReplaceOperation<T>(index, value, changedItem);
-                OnNext(update);
+                this.OnNext(update);
             }
         }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using ObservableData.Querying;
 
 namespace ObservableData.Structures.Lists.Updates
 {

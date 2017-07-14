@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
+using ObservableData.Structures;
 
 namespace ObservableData.Querying.Compatibility
 {

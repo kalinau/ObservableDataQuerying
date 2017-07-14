@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using ObservableData.Querying.Utils;
+using ObservableData.Structures;
 
 namespace ObservableData.Querying.Select.Immutable
 {
@@ -26,11 +27,11 @@ namespace ObservableData.Querying.Select.Immutable
                 {
 
                     case CollectionOperationType.Add:
-                        yield return CollectionOperation<TOut>.OnAdd(base.Select(update.Item));
+                        yield return CollectionOperation<TOut>.OnAdd(this.Select(update.Item));
                         break;
 
                     case CollectionOperationType.Remove:
-                        yield return CollectionOperation<TOut>.OnRemove(base.SelectRemoved(update.Item));
+                        yield return CollectionOperation<TOut>.OnRemove(this.SelectRemoved(update.Item));
                         break;
 
                     case CollectionOperationType.Clear:

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using ObservableData.Querying.Utils;
+using ObservableData.Structures.Utils;
 
 namespace ObservableData.Structures.Collections.Updates
 {

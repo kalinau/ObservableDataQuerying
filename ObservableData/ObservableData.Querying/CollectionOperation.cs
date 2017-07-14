@@ -6,8 +6,8 @@ namespace ObservableData.Querying
     {
         private CollectionOperation(CollectionOperationType type, T item)
         {
-            Item = item;
-            Type = type;
+            this.Item = item;
+            this.Type = type;
         }
 
         public static CollectionOperation<T> OnClear()

@@ -1,9 +1,9 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using ObservableData.Querying;
+using ObservableData.Structures;
+using ObservableData.Structures.Utils;
 
-namespace ObservableData.Structures.Utils
+namespace ObservableData.Querying.Compatibility
 {
     public sealed class CollectionUpdateToQueryUpdates<T> : IUpdate<CollectionOperation<T>>
     {

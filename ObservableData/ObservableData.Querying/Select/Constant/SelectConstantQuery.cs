@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using ObservableData.Structures;
 
 namespace ObservableData.Querying.Select.Constant
 {
@@ -41,7 +42,7 @@ namespace ObservableData.Querying.Select.Constant
 
         public IDisposable Subscribe(IObserver<IUpdate<ListOperation<TOut>>> observer, out IReadOnlyList<TOut> mutableState)
         {
-            var adapter = new SelectConstantListObserver<TIn, TOut>(observer, this._func);
+            var adapter = new SelectConstantListObserver<TIn, TOut>(observer, _func);
 
             IReadOnlyList<TIn> previousState;
             var result = _previous.Subscribe(adapter, out previousState);

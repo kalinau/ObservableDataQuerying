@@ -6,11 +6,11 @@ namespace ObservableData.Querying
     {
         public ListOperation(ListOperationType type, T item, T changedItem, int index, int originalIndex)
         {
-            Type = type;
-            Item = item;
-            ChangedItem = changedItem;
-            Index = index;
-            OriginalIndex = originalIndex;
+            this.Type = type;
+            this.Item = item;
+            this.ChangedItem = changedItem;
+            this.Index = index;
+            this.OriginalIndex = originalIndex;
         }
 
         public static ListOperation<T> OnClear()

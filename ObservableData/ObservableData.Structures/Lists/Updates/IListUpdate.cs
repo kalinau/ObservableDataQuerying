@@ -1,5 +1,3 @@
-using ObservableData.Querying;
-
 namespace ObservableData.Structures.Lists.Updates
 {
     // ReSharper disable once PossibleInterfaceMemberAmbiguity

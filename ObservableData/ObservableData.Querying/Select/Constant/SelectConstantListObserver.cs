@@ -1,6 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 using ObservableData.Querying.Utils.Adapters;
+using ObservableData.Structures;
 
 namespace ObservableData.Querying.Select.Constant
 {

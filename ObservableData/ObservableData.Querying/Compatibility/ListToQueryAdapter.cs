@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using JetBrains.Annotations;
-using ObservableData.Querying;
+using ObservableData.Structures;
 
-namespace ObservableData.Structures.Utils
+namespace ObservableData.Querying.Compatibility
 {
     public class ListToQueryAdapter<T> : IQuery<T>
     {

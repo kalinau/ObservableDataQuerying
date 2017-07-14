@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reactive.Linq;
 using JetBrains.Annotations;
-using ObservableData.Querying;
-using ObservableData.Structures.Lists.Updates;
-using ObservableData.Structures.Utils;
+using ObservableData.Querying.Compatibility;
+using ObservableData.Structures;
 
-namespace ObservableData.Structures
+namespace ObservableData.Querying
 {
     public static class ListExtensions
     {
