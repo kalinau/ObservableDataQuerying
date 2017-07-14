@@ -6,7 +6,7 @@ using ObservableData.Structures.Utils;
 
 namespace ObservableData.Structures.Lists.Updates
 {
-    public class ListInsertBatchOperation<T> : ListBaseOperation<T>, IListInsertOperation<T>, ICollectionInsertOperation<T>
+    public sealed class ListInsertBatchOperation<T> : ListBaseOperation<T>, IListInsertOperation<T>, ICollectionInsertOperation<T>
     {
         private readonly int _index;
         [NotNull] private readonly IReadOnlyCollection<T> _items;
@@ -54,12 +54,12 @@ namespace ObservableData.Structures.Lists.Updates
             onInsert?.Invoke(this);
         }
 
-        public virtual TResult Match<TResult>(Func<ICollectionInsertOperation<T>, TResult> onInsert, Func<ICollectionRemoveOperation<T>, TResult> onRemove, Func<ICollectionReplaceOperation<T>, TResult> onReplace, Func<ICollectionResetOperation<T>, TResult> onReset)
+        public TResult Match<TResult>(Func<ICollectionInsertOperation<T>, TResult> onInsert, Func<ICollectionRemoveOperation<T>, TResult> onRemove, Func<ICollectionReplaceOperation<T>, TResult> onReplace, Func<ICollectionResetOperation<T>, TResult> onReset)
         {
             return onInsert.Invoke(this);
         }
 
-        public virtual void Match(Action<ICollectionInsertOperation<T>> onInsert, Action<ICollectionRemoveOperation<T>> onRemove, Action<ICollectionReplaceOperation<T>> onReplace, Action<ICollectionResetOperation<T>> onReset)
+        public void Match(Action<ICollectionInsertOperation<T>> onInsert, Action<ICollectionRemoveOperation<T>> onRemove, Action<ICollectionReplaceOperation<T>> onReplace, Action<ICollectionResetOperation<T>> onReset)
         {
             onInsert?.Invoke(this);
         }

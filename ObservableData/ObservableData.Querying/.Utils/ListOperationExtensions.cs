@@ -5,6 +5,8 @@ using ObservableData.Structures;
 
 namespace ObservableData.Querying.Utils
 {
+    //TODO: verify
+    [PublicAPI]
     public static class ListOperationExtensions
     {
         private sealed class ListUpdateAdapter<T> : IUpdate<CollectionOperation<T>>

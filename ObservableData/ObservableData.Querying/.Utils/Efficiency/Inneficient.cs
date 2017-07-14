@@ -1,7 +1,10 @@
 using System.Diagnostics;
+using JetBrains.Annotations;
 
 namespace ObservableData.Querying.Utils.Efficiency
 {
+    //TODO: verify
+    [PublicAPI]
     public static class Inneficient
     {
         public static void Assert(bool condition)
