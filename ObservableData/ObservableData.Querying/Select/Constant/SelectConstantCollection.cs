@@ -12,7 +12,7 @@ namespace ObservableData.Querying.Select.Constant
 
         public SelectConstantCollection([NotNull] IReadOnlyCollection<TIn> source, [NotNull] Func<TIn, TOut> select) : base(source)
         {
-            _select = @select;
+            _select = select;
         }
 
         protected override IEnumerable<TOut> Enumerate(IEnumerable<TIn> source) => source.Select(_select);

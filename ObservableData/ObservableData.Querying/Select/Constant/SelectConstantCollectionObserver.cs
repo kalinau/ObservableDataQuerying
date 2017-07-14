@@ -9,7 +9,7 @@ namespace ObservableData.Querying.Select.Constant
     {
         [NotNull] private readonly Func<TIn, TOut> _select;
 
-        public SelectConstantCollectionObserver([NotNull] IObserver<IUpdate<CollectionOperation<TOut>>> adaptee, [NotNull] Func<TIn, TOut> @select) : base(adaptee)
+        public SelectConstantCollectionObserver([NotNull] IObserver<IUpdate<CollectionOperation<TOut>>> adaptee, [NotNull] Func<TIn, TOut> select) : base(adaptee)
         {
             _select = select;
         }

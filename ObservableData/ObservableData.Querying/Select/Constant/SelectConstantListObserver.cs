@@ -11,7 +11,7 @@ namespace ObservableData.Querying.Select.Constant
 
         public SelectConstantListObserver([NotNull] IObserver<IUpdate<ListOperation<TOut>>> adaptee, [NotNull] Func<TIn, TOut> select) : base(adaptee)
         {
-            _select = @select;
+            _select = select;
         }
 
         protected override IUpdate<ListOperation<TOut>> HandleValue([NotNull] IUpdate<ListOperation<TIn>> value) =>

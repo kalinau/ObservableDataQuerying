@@ -31,7 +31,7 @@ namespace ObservableData.Structures.Lists
 
         public T this[int index]
         {
-            get { return _list[index]; }
+            get => _list[index];
             set
             {
                 T changedItem = _list[index];
