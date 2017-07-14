@@ -56,6 +56,7 @@ namespace ObservableData.Structures
 
     public interface IListResetOperation<out T> : IListOperation<T>
     {
+        [CanBeNull]
         IReadOnlyCollection<T> Items { get; }
     }
 }

@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include=".Utils\Annotations.cs" />
     <Compile Include=".Utils\ItemOrEnumerable.cs" />
     <Compile Include=".Utils\ThreadId.cs" />
     <Compile Include="Collections\Updates\CollectionBaseOperation.cs" />

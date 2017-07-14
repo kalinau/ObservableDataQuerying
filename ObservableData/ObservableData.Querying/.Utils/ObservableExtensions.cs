@@ -16,7 +16,7 @@ namespace ObservableData.Querying.Utils
                 throw new ArgumentNullException(nameof(source));
             }
 
-            return Observable.Create<T>(o => source.WeakSubscribe(o));
+            return Observable.Create<T>(o => source.WeakSubscribe(o)).NotNull();
         }
 
         [NotNull]

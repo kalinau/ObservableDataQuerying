@@ -2,6 +2,7 @@
 using System.Reactive.Linq;
 using JetBrains.Annotations;
 using ObservableData.Structures.Collections.Updates;
+using ObservableData.Structures.Utils;
 
 namespace ObservableData.Structures
 {
@@ -10,6 +11,6 @@ namespace ObservableData.Structures
         [NotNull]
         public static IObservable<IUpdate<ICollectionOperation<T>>> AsObservable<T>(
             [NotNull] this IObservableReadOnlyCollection<T> list) =>
-            list.Updates.StartWith(new CollectionInsertBatchOperation<T>(list));
+            list.Updates.StartWith(new CollectionInsertBatchOperation<T>(list)).NotNull();
     }
 }

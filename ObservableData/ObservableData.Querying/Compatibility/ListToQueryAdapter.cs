@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using JetBrains.Annotations;
+using ObservableData.Querying.Utils;
 using ObservableData.Structures;
 
 namespace ObservableData.Querying.Compatibility
@@ -22,25 +23,25 @@ namespace ObservableData.Querying.Compatibility
         public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<T>>> observer)
         {
             IObservableReadOnlyCollection<T> collection = _adaptee;
-            return collection.AsObservable().Select(Adapt).Subscribe(observer);
+            return collection.AsObservable().Select(Adapt).NotNull().Subscribe(observer).NotNull();
         }
 
         public IDisposable Subscribe(IObserver<IUpdate<ListOperation<T>>> observer)
         {
-            return _adaptee.AsObservable().Select(Adapt).Subscribe(observer);
+            return _adaptee.AsObservable().Select(Adapt).NotNull().Subscribe(observer).NotNull();
         }
 
         public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<T>>> observer, out IReadOnlyCollection<T> mutableState)
         {
             IObservableReadOnlyCollection<T> collection = _adaptee;
             mutableState = collection;
-            return collection.Updates.Select(Adapt).Subscribe(observer);
+            return collection.Updates.Select(Adapt).NotNull().Subscribe(observer).NotNull();
         }
 
         public IDisposable Subscribe(IObserver<IUpdate<ListOperation<T>>> observer, out IReadOnlyList<T> mutableState)
         {
             mutableState = _adaptee;
-            return _adaptee.Updates.Select(Adapt).Subscribe(observer);
+            return _adaptee.Updates.Select(Adapt).NotNull().Subscribe(observer).NotNull();
         }
 
         private static ListUpdateToQueryUpdates<T> Adapt([NotNull] IUpdate<IListOperation<T>> x)

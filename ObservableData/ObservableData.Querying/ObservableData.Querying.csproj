@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include=".Utils\Adapters\CollectionAdapter.cs" />
     <Compile Include=".Utils\Adapters\ListAdapter.cs" />
+    <Compile Include=".Utils\Annotations.cs" />
     <Compile Include=".Utils\KeedAliveDisposableAdapter.cs" />
     <Compile Include=".Utils\WeakObserver.cs" />
     <Compile Include=".Utils\WeakReferenceExtensions.cs" />
