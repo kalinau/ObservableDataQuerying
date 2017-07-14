@@ -4,7 +4,7 @@ namespace ObservableData.Querying
 {
     public struct ListOperation<T>
     {
-        public ListOperation(ListOperationType type, T item, T changedItem, int index, int originalIndex)
+        private ListOperation(ListOperationType type, T item, T changedItem, int index, int originalIndex)
         {
             this.Type = type;
             this.Item = item;

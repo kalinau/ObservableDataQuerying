@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 
 namespace ObservableData.Structures
 {
+    [PublicAPI]
     public interface ICollectionOperation<out T>
     {
         TResult Match<TResult>(

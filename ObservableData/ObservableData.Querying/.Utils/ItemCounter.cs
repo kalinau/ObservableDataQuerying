@@ -20,6 +20,8 @@ namespace ObservableData.Querying.Utils
         public uint Count => _count;
     }
 
+
+    [PublicAPI]
     public static class ItemCounterExtensions
     {
         public static IEnumerable<T> Enumerate<T>([NotNull] this IEnumerable<ItemCounter<T>> counters)

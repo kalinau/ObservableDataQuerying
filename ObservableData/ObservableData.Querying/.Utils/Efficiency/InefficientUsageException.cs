@@ -1,7 +1,9 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace ObservableData.Querying.Utils.Efficiency
 {
+    [PublicAPI]
     public class InefficientUsageException : Exception
     {
         public InefficientUsageException()

@@ -9,6 +9,7 @@ using ObservableData.Querying.Where.Immutable;
 
 namespace ObservableData.Querying
 {
+    [PublicAPI]
     public static class QueryExtensions
     {
         [NotNull]

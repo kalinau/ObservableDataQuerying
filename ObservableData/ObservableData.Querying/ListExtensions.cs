@@ -6,6 +6,7 @@ using ObservableData.Structures;
 
 namespace ObservableData.Querying
 {
+    [PublicAPI]
     public static class ListExtensions
     {
         [NotNull]

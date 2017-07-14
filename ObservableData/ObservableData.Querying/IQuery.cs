@@ -5,6 +5,7 @@ using ObservableData.Structures;
 
 namespace ObservableData.Querying
 {
+    [PublicAPI]
     public interface IQuery<T>
     {
         void IgnoreEfficiency();

@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 
 namespace ObservableData.Querying.Utils
 {
+    [PublicAPI]
     public static class ObservableExtensions
     {
         [NotNull]

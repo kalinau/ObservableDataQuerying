@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 
 namespace ObservableData.Structures
 {
+    [PublicAPI]
     public interface IBatchCollection<T> : ICollection<T>
     {
         [NotNull]

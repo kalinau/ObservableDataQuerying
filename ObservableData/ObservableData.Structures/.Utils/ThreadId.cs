@@ -8,7 +8,7 @@ namespace ObservableData.Structures.Utils
     {
         private readonly int? _threadId;
 
-        public ThreadId(int threadId)
+        private ThreadId(int threadId)
         {
             _threadId = threadId;
         }

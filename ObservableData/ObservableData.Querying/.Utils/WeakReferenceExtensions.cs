@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 
 namespace ObservableData.Querying.Utils
 {
+    [PublicAPI]
     public static class WeakReferenceExtensions
     {
         [CanBeNull]

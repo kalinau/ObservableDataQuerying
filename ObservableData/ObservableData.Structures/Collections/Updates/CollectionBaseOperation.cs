@@ -5,8 +5,6 @@ namespace ObservableData.Structures.Collections.Updates
 {
     public abstract class CollectionBaseOperation<T> : ICollectionOperation<T>, IUpdate<ICollectionOperation<T>>
     {
-        public CollectionBaseOperation<T> Next { get; set; }
-
         public abstract void Lock();
 
         IEnumerable<ICollectionOperation<T>> IUpdate<ICollectionOperation<T>>.Operations()
