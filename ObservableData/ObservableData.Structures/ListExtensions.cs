@@ -12,10 +12,5 @@ namespace ObservableData.Structures
         public static IObservable<IUpdate<IListOperation<T>>> AsObservable<T>(
             [NotNull] this IObservableReadOnlyList<T> list) =>
             list.Updates.StartWith(new ListInsertBatchOperation<T>(list, 0)).NotNull();
-
-        public static void Do()
-        {
-
-        }
     }
 }
