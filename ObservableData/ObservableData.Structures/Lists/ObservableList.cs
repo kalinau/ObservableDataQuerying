@@ -34,7 +34,7 @@ namespace ObservableData.Structures.Lists
             get => _list[index];
             set
             {
-                T changedItem = _list[index];
+                var changedItem = _list[index];
                 _list[index] = value;
                 _subject.OnReplace(value, changedItem, index);
             }
@@ -78,7 +78,7 @@ namespace ObservableData.Structures.Lists
 
         public bool Remove(T item)
         {
-            int index = _list.IndexOf(item);
+            var index = _list.IndexOf(item);
 
             if (index >= 0)
             {
@@ -94,7 +94,7 @@ namespace ObservableData.Structures.Lists
             ListIndex.Check(to, this.Count);
             if (from == to) return;
 
-            T item = _list[from];
+            var item = _list[from];
             _list.RemoveAt(from);
             _list.Insert(to, item);
             _subject.OnMove(item, from, to);
@@ -111,7 +111,7 @@ namespace ObservableData.Structures.Lists
         public void RemoveAt(int index)
         {
             ListIndex.Check(index, _list.Count);
-            T item = _list[index];
+            var item = _list[index];
             _list.RemoveAt(index);
             _subject.OnRemove(item, index);
         }

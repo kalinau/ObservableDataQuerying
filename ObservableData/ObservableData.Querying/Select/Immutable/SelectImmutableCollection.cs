@@ -25,7 +25,7 @@ namespace ObservableData.Querying.Select.Immutable
             Debug.Assert(_map.Values != null);
             foreach (var counter in _map.Values)
             {
-                for (int i = 0; i < counter.Count; i++)
+                for (var i = 0; i < counter.Count; i++)
                 {
                     yield return counter.Item;
                 }

@@ -28,7 +28,7 @@ namespace ObservableData.Querying.Utils
         {
             foreach (var counter in counters)
             {
-                for (int i = 0; i < counter.Count; i++)
+                for (var i = 0; i < counter.Count; i++)
                 {
                     yield return counter.Item;
                 }
