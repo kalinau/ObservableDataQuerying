@@ -35,13 +35,13 @@ namespace ObservableData.Querying.Compatibility
         {
             IObservableReadOnlyCollection<T> collection = _adaptee;
             mutableState = collection;
-            return collection.Updates.Select(Adapt).NotNull().Subscribe(observer).NotNull();
+            return collection.WhenUpdated.Select(Adapt).NotNull().Subscribe(observer).NotNull();
         }
 
         public IDisposable Subscribe(IObserver<IUpdate<ListOperation<T>>> observer, out IReadOnlyList<T> mutableState)
         {
             mutableState = _adaptee;
-            return _adaptee.Updates.Select(Adapt).NotNull().Subscribe(observer).NotNull();
+            return _adaptee.WhenUpdated.Select(Adapt).NotNull().Subscribe(observer).NotNull();
         }
 
         private static ListUpdateToQueryUpdates<T> Adapt([NotNull] IUpdate<IListOperation<T>> x)

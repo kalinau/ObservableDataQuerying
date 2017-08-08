@@ -11,6 +11,6 @@ namespace ObservableData.Structures
         [NotNull]
         public static IObservable<IUpdate<ICollectionOperation<T>>> AsObservable<T>(
             [NotNull] this IObservableReadOnlyCollection<T> list) =>
-            list.Updates.StartWith(new CollectionInsertBatchOperation<T>(list)).NotNull();
+            list.WhenUpdated.StartWith(new CollectionInsertBatchOperation<T>(list)).NotNull();
     }
 }

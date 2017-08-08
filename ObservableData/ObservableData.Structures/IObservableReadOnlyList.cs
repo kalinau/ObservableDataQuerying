@@ -9,6 +9,6 @@ namespace ObservableData.Structures
         new int Count { get; }
 
         [NotNull]
-        new IObservable<IUpdate<IListOperation<T>>> Updates { get; }
+        new IObservable<IUpdate<IListOperation<T>>> WhenUpdated { get; }
     }
 }

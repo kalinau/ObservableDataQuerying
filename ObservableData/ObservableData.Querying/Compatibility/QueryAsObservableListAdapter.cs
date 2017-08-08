@@ -34,9 +34,9 @@ namespace ObservableData.Querying.Compatibility
         public T this[int index] => _state[index];
 
 
-        IObservable<IUpdate<IListOperation<T>>> IObservableReadOnlyList<T>.Updates => _subject;
+        IObservable<IUpdate<IListOperation<T>>> IObservableReadOnlyList<T>.WhenUpdated => _subject;
 
-        IObservable<IUpdate<ICollectionOperation<T>>> IObservableReadOnlyCollection<T>.Updates => _subject;
+        IObservable<IUpdate<ICollectionOperation<T>>> IObservableReadOnlyCollection<T>.WhenUpdated => _subject;
 
         public void Dispose()
         {
