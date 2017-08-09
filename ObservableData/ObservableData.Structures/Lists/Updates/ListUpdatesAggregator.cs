@@ -5,11 +5,11 @@ using JetBrains.Annotations;
 
 namespace ObservableData.Structures.Lists.Updates
 {
-    public class ListUpdatesAggregator<T> : IObservable<IUpdate<IListOperation<T>>>, IObservable<IUpdate<ICollectionOperation<T>>>
+    public class ListUpdatesAggregator<T> : IObservable<IChange<IListOperation<T>>>, IObservable<IChange<ICollectionOperation<T>>>
     {
-        [NotNull] private readonly Subject<IListUpdate<T>> _subject = new Subject<IListUpdate<T>>();
+        [NotNull] private readonly Subject<IListChange<T>> _subject = new Subject<IListChange<T>>();
 
-        [CanBeNull] private ListBatchUpdate<T> _batch;
+        [CanBeNull] private ListBatchChange<T> _batch;
 
         private bool ShouldNotify => _batch != null || _subject.HasObservers;
 
@@ -18,21 +18,21 @@ namespace ObservableData.Structures.Lists.Updates
         {
             if (_batch != null) throw new NotImplementedException("recusive batch updates are not implemented");
 
-            _batch = new ListBatchUpdate<T>(this.StopBatchUpdate);
+            _batch = new ListBatchChange<T>(this.StopBatchUpdate);
             return _batch;
         }
 
-        public IDisposable Subscribe(IObserver<IUpdate<IListOperation<T>>> observer)
+        public IDisposable Subscribe(IObserver<IChange<IListOperation<T>>> observer)
         {
             return _subject.Subscribe(observer);
         }
 
-        public IDisposable Subscribe(IObserver<IUpdate<ICollectionOperation<T>>> observer)
+        public IDisposable Subscribe(IObserver<IChange<ICollectionOperation<T>>> observer)
         {
             return _subject.Subscribe(observer);
         }
 
-        private void StopBatchUpdate(ListBatchUpdate<T> batch)
+        private void StopBatchUpdate(ListBatchChange<T> batch)
         {
             if (batch != _batch) return;
             _batch = null;

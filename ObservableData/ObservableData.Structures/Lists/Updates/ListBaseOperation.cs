@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ObservableData.Structures.Lists.Updates
 {
-    public abstract class ListBaseOperation<T> : IListOperation<T>, IListUpdate<T>
+    public abstract class ListBaseOperation<T> : IListOperation<T>, IListChange<T>
     {
         public ListBaseOperation<T> Next { get; set; }
 
@@ -25,12 +25,12 @@ namespace ObservableData.Structures.Lists.Updates
             Action<IListMoveOperation<T>> onMove,
             Action<IListResetOperation<T>> onReset);
 
-        IEnumerable<IListOperation<T>> IUpdate<IListOperation<T>>.Operations()
+        IEnumerable<IListOperation<T>> IChange<IListOperation<T>>.Operations()
         {
             yield return this;
         }
 
-        IEnumerable<ICollectionOperation<T>> IUpdate<ICollectionOperation<T>>.Operations()
+        IEnumerable<ICollectionOperation<T>> IChange<ICollectionOperation<T>>.Operations()
         {
             var operation = this.TryGetCollectionOperation();
             if (operation != null)

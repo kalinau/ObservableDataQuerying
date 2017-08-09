@@ -12,12 +12,12 @@ namespace ObservableData.Querying.Compatibility
     public class QueryAsObservableListAdapter<T> :
         IObservableReadOnlyList<T>,
         IDisposable,
-        IObserver<IUpdate<ListOperation<T>>>
+        IObserver<IChange<ListOperation<T>>>
     {
         [NotNull] private readonly IReadOnlyList<T> _state;
         [NotNull] private readonly IDisposable _subscription;
-        [NotNull] private readonly Subject<IListUpdate<T>> _subject = 
-            new Subject<IListUpdate<T>>();
+        [NotNull] private readonly Subject<IListChange<T>> _subject = 
+            new Subject<IListChange<T>>();
 
         public QueryAsObservableListAdapter([NotNull] IQuery<T> query)
         {
@@ -34,9 +34,9 @@ namespace ObservableData.Querying.Compatibility
         public T this[int index] => _state[index];
 
 
-        IObservable<IUpdate<IListOperation<T>>> IObservableReadOnlyList<T>.WhenUpdated => _subject;
+        IObservable<IChange<IListOperation<T>>> IObservableReadOnlyList<T>.WhenUpdated => _subject;
 
-        IObservable<IUpdate<ICollectionOperation<T>>> IObservableReadOnlyCollection<T>.WhenUpdated => _subject;
+        IObservable<IChange<ICollectionOperation<T>>> IObservableReadOnlyCollection<T>.WhenUpdated => _subject;
 
         public void Dispose()
         {
@@ -48,7 +48,7 @@ namespace ObservableData.Querying.Compatibility
 
         public void OnError(Exception error) => this.Dispose();
 
-        public void OnNext(IUpdate<ListOperation<T>> value)
+        public void OnNext(IChange<ListOperation<T>> value)
         {
             _subject.OnNext(null);
         }

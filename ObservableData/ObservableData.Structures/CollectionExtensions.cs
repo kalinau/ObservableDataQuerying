@@ -9,7 +9,7 @@ namespace ObservableData.Structures
     public static class CollectionExtensions
     {
         [NotNull]
-        public static IObservable<IUpdate<ICollectionOperation<T>>> AsObservable<T>(
+        public static IObservable<IChange<ICollectionOperation<T>>> AsObservable<T>(
             [NotNull] this IObservableReadOnlyCollection<T> list) =>
             list.WhenUpdated.StartWith(new CollectionInsertBatchOperation<T>(list)).NotNull();
     }

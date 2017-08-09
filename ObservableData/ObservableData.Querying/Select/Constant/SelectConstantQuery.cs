@@ -19,20 +19,20 @@ namespace ObservableData.Querying.Select.Constant
 
         public void IgnoreEfficiency() { }
 
-        public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<TOut>>> observer)
+        public IDisposable Subscribe(IObserver<IChange<CollectionOperation<TOut>>> observer)
         {
             var adapter = observer.Wrap(
                 this.Adapt,
-                default(IUpdate<CollectionOperation<TIn>>));
+                default(IChange<CollectionOperation<TIn>>));
 
             return _previous.Subscribe(adapter);
         }
          
-        public IDisposable Subscribe(IObserver<IUpdate<CollectionOperation<TOut>>> observer, out IReadOnlyCollection<TOut> mutableState)
+        public IDisposable Subscribe(IObserver<IChange<CollectionOperation<TOut>>> observer, out IReadOnlyCollection<TOut> mutableState)
         {
             var adapter = observer.Wrap(
                 this.Adapt,
-                default(IUpdate<CollectionOperation<TIn>>));
+                default(IChange<CollectionOperation<TIn>>));
 
             IReadOnlyCollection<TIn> previousState;
             var result = _previous.Subscribe(adapter, out previousState);
@@ -40,20 +40,20 @@ namespace ObservableData.Querying.Select.Constant
             return result;
         }
 
-        public IDisposable Subscribe(IObserver<IUpdate<ListOperation<TOut>>> observer)
+        public IDisposable Subscribe(IObserver<IChange<ListOperation<TOut>>> observer)
         {
             var adapter = observer.Wrap(
                 this.Adapt,
-                default(IUpdate<ListOperation<TIn>>));
+                default(IChange<ListOperation<TIn>>));
 
             return _previous.Subscribe(adapter);
         }
 
-        public IDisposable Subscribe(IObserver<IUpdate<ListOperation<TOut>>> observer, out IReadOnlyList<TOut> mutableState)
+        public IDisposable Subscribe(IObserver<IChange<ListOperation<TOut>>> observer, out IReadOnlyList<TOut> mutableState)
         {
             var adapter = observer.Wrap(
                 this.Adapt,
-                default(IUpdate<ListOperation<TIn>>));
+                default(IChange<ListOperation<TIn>>));
 
             IReadOnlyList<TIn> previousState;
             var result = _previous.Subscribe(adapter, out previousState);
@@ -61,7 +61,7 @@ namespace ObservableData.Querying.Select.Constant
             return result;
         }
 
-        private IUpdate<ListOperation<TOut>> Adapt([CanBeNull] IUpdate<ListOperation<TIn>> e)
+        private IChange<ListOperation<TOut>> Adapt([CanBeNull] IChange<ListOperation<TIn>> e)
         {
             if (e == null) return null;
 
@@ -103,7 +103,7 @@ namespace ObservableData.Querying.Select.Constant
             return e.Adapt(Enumerate);
         }
 
-        private IUpdate<CollectionOperation<TOut>> Adapt([CanBeNull] IUpdate<CollectionOperation<TIn>> e)
+        private IChange<CollectionOperation<TOut>> Adapt([CanBeNull] IChange<CollectionOperation<TIn>> e)
         {
             if (e == null) return null;
 

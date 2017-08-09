@@ -19,11 +19,11 @@ namespace ObservableData.Querying
             [NotNull] this IObservableReadOnlyList<T> list) =>
             list.AsQuery().AsBindableList();
 
-        [NotNull]
-        public static IQuery<TOut> SelectImmutable<TIn, TOut>(
-            [NotNull] this IObservableReadOnlyList<TIn> list,
-            [NotNull] Func<TIn, TOut> func) =>
-            list.AsQuery().SelectImmutable(func);
+        //[NotNull]
+        //public static IQuery<TOut> SelectImmutable<TIn, TOut>(
+        //    [NotNull] this IObservableReadOnlyList<TIn> list,
+        //    [NotNull] Func<TIn, TOut> func) =>
+        //    list.AsQuery().SelectImmutable(func);
 
         [NotNull]
         public static IQuery<T> AsWeakQuery<T>(
@@ -36,10 +36,10 @@ namespace ObservableData.Querying
             [NotNull] Func<TIn, TOut> func) =>
             list.AsQuery().SelectConstant(func);
 
-        [NotNull]
-        public static IQuery<TIn> WhereImmutable<TIn>(
-            [NotNull] this IObservableReadOnlyList<TIn> list,
-            [NotNull] Func<TIn, bool> func) =>
-            list.AsQuery().WhereImmutable(func);
+        //[NotNull]
+        //public static IQuery<TIn> WhereImmutable<TIn>(
+        //    [NotNull] this IObservableReadOnlyList<TIn> list,
+        //    [NotNull] Func<TIn, bool> func) =>
+        //    list.AsQuery().WhereImmutable(func);
     }
 }

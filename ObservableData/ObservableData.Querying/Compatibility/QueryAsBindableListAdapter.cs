@@ -14,7 +14,7 @@ namespace ObservableData.Querying.Compatibility
         INotifyPropertyChanged, 
         IReadOnlyList<T>,
         IDisposable,
-        IObserver<IUpdate<ListOperation<T>>>
+        IObserver<IChange<ListOperation<T>>>
     {
         [NotNull] private readonly IReadOnlyList<T> _state;
         [NotNull] private readonly IDisposable _subscription;
@@ -36,7 +36,7 @@ namespace ObservableData.Querying.Compatibility
 
         public void OnError(Exception error) => this.Dispose();
 
-        public void OnNext([NotNull] IUpdate<ListOperation<T>> value)
+        public void OnNext([NotNull] IChange<ListOperation<T>> value)
         {
             foreach (var update in value.Operations())
             {

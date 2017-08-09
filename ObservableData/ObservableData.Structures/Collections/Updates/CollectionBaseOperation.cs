@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace ObservableData.Structures.Collections.Updates
 {
-    public abstract class CollectionBaseOperation<T> : ICollectionOperation<T>, IUpdate<ICollectionOperation<T>>
+    public abstract class CollectionBaseOperation<T> : ICollectionOperation<T>, IChange<ICollectionOperation<T>>
     {
         public abstract void Lock();
 
-        IEnumerable<ICollectionOperation<T>> IUpdate<ICollectionOperation<T>>.Operations()
+        IEnumerable<ICollectionOperation<T>> IChange<ICollectionOperation<T>>.Operations()
         {
             yield return this;
         }

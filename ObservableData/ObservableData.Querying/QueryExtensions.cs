@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using ObservableData.Querying.Compatibility;
 using ObservableData.Querying.Select.Constant;
-using ObservableData.Querying.Select.Immutable;
 using ObservableData.Querying.Weak;
-using ObservableData.Querying.Where.Immutable;
 
 namespace ObservableData.Querying
 {
     [PublicAPI]
     public static class QueryExtensions
     {
-        [NotNull]
-        public static IQuery<TOut> SelectImmutable<TIn, TOut>(
-            [NotNull] this IQuery<TIn> list, [NotNull] Func<TIn, TOut> func) => 
-            new SelectImmutableQuery<TIn, TOut>(list, func);
+        //[NotNull]
+        //public static IQuery<TOut> SelectImmutable<TIn, TOut>(
+        //    [NotNull] this IQuery<TIn> list, [NotNull] Func<TIn, TOut> func) => 
+        //    new SelectImmutableQuery<TIn, TOut>(list, func);
 
         [NotNull]
         public static IQuery<T> SelectMutable<T>(
@@ -30,11 +28,11 @@ namespace ObservableData.Querying
             [NotNull] Func<TIn, TOut> func) =>
             new SelectConstantQuery<TIn, TOut>(data, func);
 
-        [NotNull]
-        public static IQuery<T> WhereImmutable<T>(
-            [NotNull] this IQuery<T> data,
-            [NotNull] Func<T, bool> func) =>
-            new WhereByImmutableQuery<T>(data, func);
+        //[NotNull]
+        //public static IObservable<IChange<CollectionOperation<T>>> ForFilteredByImmutable<T>(
+        //    [NotNull] this IObservable<IChange<CollectionOperation<T>>> whenUpdated,
+        //    [NotNull] Func<T, bool> func) =>
+        //    new WhereByImmutableQuery<T>(whenUpdated, func);
 
         [NotNull]
         public static IQuery<T> AsWeak<T>(

@@ -11,15 +11,15 @@ namespace ObservableData.Querying
         void IgnoreEfficiency();
 
         [NotNull]
-        IDisposable Subscribe([NotNull] IObserver<IUpdate<CollectionOperation<T>>> observer);
+        IDisposable Subscribe([NotNull] IObserver<IChange<CollectionOperation<T>>> observer);
 
         [NotNull]
-        IDisposable Subscribe([NotNull] IObserver<IUpdate<CollectionOperation<T>>> observer, out IReadOnlyCollection<T> mutableState);
+        IDisposable Subscribe([NotNull] IObserver<IChange<CollectionOperation<T>>> observer, out IReadOnlyCollection<T> mutableState);
 
         [NotNull]
-        IDisposable Subscribe([NotNull] IObserver<IUpdate<ListOperation<T>>> observer);
+        IDisposable Subscribe([NotNull] IObserver<IChange<ListOperation<T>>> observer);
 
         [NotNull]
-        IDisposable Subscribe([NotNull] IObserver<IUpdate<ListOperation<T>>> observer, out IReadOnlyList<T> mutableState);
+        IDisposable Subscribe([NotNull] IObserver<IChange<ListOperation<T>>> observer, out IReadOnlyList<T> mutableState);
     }
 }

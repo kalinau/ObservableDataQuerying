@@ -4,13 +4,13 @@ using JetBrains.Annotations;
 
 namespace ObservableData.Structures.Lists.Updates
 {
-    public class ListBatchUpdate<T> : IDisposable, IListUpdate<T>
+    public class ListBatchChange<T> : IDisposable, IListChange<T>
     {
-        [NotNull] private readonly Action<ListBatchUpdate<T>> _onDispose;
+        [NotNull] private readonly Action<ListBatchChange<T>> _onDispose;
         private ListBaseOperation<T> _first;
         private ListBaseOperation<T> _last;
 
-        public ListBatchUpdate([NotNull] Action<ListBatchUpdate<T>> onDispose)
+        public ListBatchChange([NotNull] Action<ListBatchChange<T>> onDispose)
         {
             _onDispose = onDispose;
         }
@@ -50,7 +50,7 @@ namespace ObservableData.Structures.Lists.Updates
             }
         }
 
-        IEnumerable<ICollectionOperation<T>> IUpdate<ICollectionOperation<T>>.Operations()
+        IEnumerable<ICollectionOperation<T>> IChange<ICollectionOperation<T>>.Operations()
         {
             var next = _first;
             while (next != null)
@@ -64,7 +64,7 @@ namespace ObservableData.Structures.Lists.Updates
             }
         }
 
-        IEnumerable<IListOperation<T>> IUpdate<IListOperation<T>>.Operations()
+        IEnumerable<IListOperation<T>> IChange<IListOperation<T>>.Operations()
         {
             var next = _first;
             while (next != null)

@@ -23,9 +23,9 @@ namespace ObservableData.Structures.Lists
 
         public int Count => _list.Count;
 
-        IObservable<IUpdate<IListOperation<T>>> IObservableReadOnlyList<T>.WhenUpdated => _subject;
+        IObservable<IChange<IListOperation<T>>> IObservableReadOnlyList<T>.WhenUpdated => _subject;
 
-        IObservable<IUpdate<ICollectionOperation<T>>> IObservableReadOnlyCollection<T>.WhenUpdated => _subject;
+        IObservable<IChange<ICollectionOperation<T>>> IObservableReadOnlyCollection<T>.WhenUpdated => _subject;
 
         public bool IsReadOnly => false;
 

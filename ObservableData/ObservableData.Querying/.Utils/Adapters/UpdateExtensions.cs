@@ -9,13 +9,13 @@ namespace ObservableData.Querying.Utils.Adapters
 {
     internal static class UpdateExtensions
     {
-        private sealed class UpdateAdapter<T, TAdaptee> : IUpdate<T>
+        private sealed class ChangeAdapter<T, TAdaptee> : IChange<T>
         {
-            [NotNull] private readonly IUpdate<TAdaptee> _adaptee;
+            [NotNull] private readonly IChange<TAdaptee> _adaptee;
             [NotNull] private readonly Func<IEnumerable<TAdaptee>, IEnumerable<T>> _enumerate;
 
-            public UpdateAdapter(
-                [NotNull] IUpdate<TAdaptee> adaptee,
+            public ChangeAdapter(
+                [NotNull] IChange<TAdaptee> adaptee,
                 [NotNull] Func<IEnumerable<TAdaptee>, IEnumerable<T>> enumerate)
             {
                 _adaptee = adaptee;
@@ -30,17 +30,17 @@ namespace ObservableData.Querying.Utils.Adapters
             public void Lock() => _adaptee.Lock();
         }
 
-        private sealed class UpdateAdapterWithLock<T, TAdaptee> : IUpdate<T>
+        private sealed class ChangeAdapterWithLock<T, TAdaptee> : IChange<T>
         {
-            [NotNull] private readonly IUpdate<TAdaptee> _adaptee;
+            [NotNull] private readonly IChange<TAdaptee> _adaptee;
             [NotNull] private readonly Func<IEnumerable<TAdaptee>, IEnumerable<T>> _enumerate;
 
 
             [CanBeNull] private IEnumerable<T> _locked;
             private ThreadId _threadId;
 
-            public UpdateAdapterWithLock(
-                [NotNull] IUpdate<TAdaptee> adaptee,
+            public ChangeAdapterWithLock(
+                [NotNull] IChange<TAdaptee> adaptee,
                 [NotNull] Func<IEnumerable<TAdaptee>, IEnumerable<T>> enumerate)
             {
                 _adaptee = adaptee;
@@ -69,18 +69,26 @@ namespace ObservableData.Querying.Utils.Adapters
             }
         }
 
-        public static IUpdate<T> Adapt<T, TAdaptee>(
-            [NotNull] this IUpdate<TAdaptee> update,
+        public static IChange<T> Adapt<T, TAdaptee>(
+            [NotNull] this IChange<TAdaptee> change,
             [NotNull] Func<IEnumerable<TAdaptee>, IEnumerable<T>> enumerate)
         {
-            return new UpdateAdapter<T, TAdaptee>(update, enumerate);
+            return new ChangeAdapter<T, TAdaptee>(change, enumerate);
         }
 
-        public static IUpdate<T> AdaptWithLock<T, TAdaptee>(
-            [NotNull] this IUpdate<TAdaptee> update,
+        [NotNull]
+        public static IChange<T> AdaptWithLock<T, TAdaptee>(
+            [NotNull] this IChange<TAdaptee> change,
             [NotNull] Func<IEnumerable<TAdaptee>, IEnumerable<T>> enumerate)
         {
-            return new UpdateAdapterWithLock<T, TAdaptee>(update, enumerate);
+            return new ChangeAdapterWithLock<T, TAdaptee>(change, enumerate);
         }
+
+        //public static IChange<T> Adapt<T, TAdaptee>(
+        //    [NotNull] this IChange<TAdaptee> change,
+        //    [NotNull] Func<IEnumerable<TAdaptee>, IEnumerable<T>> enumerate)
+        //{
+        //    return new ChangeAdapter<T, TAdaptee>(change, enumerate);
+        //}
     }
 }

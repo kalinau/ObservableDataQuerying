@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 
 namespace ObservableData.Structures
 {
-    public interface IUpdate<out T>
+    public interface IChange<out T>
     {
         [NotNull, ItemNotNull]
         IEnumerable<T> Operations();

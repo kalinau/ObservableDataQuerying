@@ -6,11 +6,11 @@ using ObservableData.Structures.Utils;
 
 namespace ObservableData.Querying.Compatibility
 {
-    public sealed class ListUpdateToQueryUpdates<T> : IUpdate<ListOperation<T>>, IEnumerable<ListOperation<T>>
+    public sealed class ListChangeToQueryChanges<T> : IChange<ListOperation<T>>, IEnumerable<ListOperation<T>>
     {
-        [NotNull] private readonly IUpdate<IListOperation<T>> _adaptee;
+        [NotNull] private readonly IChange<IListOperation<T>> _adaptee;
 
-        public ListUpdateToQueryUpdates([NotNull] IUpdate<IListOperation<T>> adaptee)
+        public ListChangeToQueryChanges([NotNull] IChange<IListOperation<T>> adaptee)
         {
             _adaptee = adaptee;
         }
