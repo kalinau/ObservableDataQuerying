@@ -34,7 +34,7 @@ namespace ObservableData.Querying
         public static IQuery<T> WhereImmutable<T>(
             [NotNull] this IQuery<T> data,
             [NotNull] Func<T, bool> func) =>
-            new WhereByImmutableData<T>(data, func);
+            new WhereByImmutableQuery<T>(data, func);
 
         [NotNull]
         public static IQuery<T> AsWeak<T>(

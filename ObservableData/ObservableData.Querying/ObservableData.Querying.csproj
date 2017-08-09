@@ -34,8 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include=".Utils\Adapters\CollectionAdapter.cs" />
+    <Compile Include=".Utils\Adapters\CollectionExtensions.cs" />
     <Compile Include=".Utils\Adapters\ListAdapter.cs" />
+    <Compile Include=".Utils\Adapters\ObserverExtensions.cs" />
+    <Compile Include=".Utils\Adapters\UpdateExtensions.cs" />
     <Compile Include=".Utils\Annotations.cs" />
     <Compile Include=".Utils\KeedAliveDisposableAdapter.cs" />
     <Compile Include=".Utils\WeakObserver.cs" />
@@ -56,26 +58,15 @@
     <Compile Include=".Utils\ListOperationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryExtensions.cs" />
-    <Compile Include="Select\Constant\SelectConstantCollection.cs" />
-    <Compile Include="Select\Constant\SelectConstantCollectionObserver.cs" />
     <Compile Include="Select\Constant\SelectConstantList.cs" />
-    <Compile Include="Select\Constant\SelectConstantListObserver.cs" />
     <Compile Include="Select\Constant\SelectConstantQuery.cs" />
-    <Compile Include="Select\Constant\SelectConstantListUpdate.cs" />
-    <Compile Include="Select\Constant\SelectConstantSetUpdate.cs" />
     <Compile Include="Select\Immutable\SelectImmutableCollection.cs" />
-    <Compile Include="Select\Immutable\SelectImmutableCollectionUpdate.cs" />
-    <Compile Include="Select\Immutable\SelectImmutableCollectionObserver.cs" />
     <Compile Include="Select\Immutable\SelectImmutableList.cs" />
-    <Compile Include="Select\Immutable\SelectImmutableListObserver.cs" />
     <Compile Include="Select\Immutable\SelectImmutableQuery.cs" />
-    <Compile Include="Select\Immutable\SelectImmutableUpdate.cs" />
-    <Compile Include="Select\Immutable\SelectImmutablListUpdate.cs" />
     <Compile Include="Weak\WeakQuery.cs" />
-    <Compile Include="Where\Immutable\WhereByImmutableCollectionUpdate.cs" />
-    <Compile Include="Where\Immutable\WhereByImmutableData.cs" />
     <Compile Include=".Utils\ItemCounter.cs" />
     <Compile Include=".Utils\ObservableExtensions.cs" />
+    <Compile Include="Where\Immutable\WhereByImmutableQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ObservableData.Structures\ObservableData.Structures.csproj">

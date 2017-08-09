@@ -24,6 +24,7 @@ namespace ObservableData.Querying.Utils
     [PublicAPI]
     public static class ItemCounterExtensions
     {
+        [NotNull]
         public static IEnumerable<T> Enumerate<T>([NotNull] this IEnumerable<ItemCounter<T>> counters)
         {
             foreach (var counter in counters)
@@ -33,6 +34,38 @@ namespace ObservableData.Querying.Utils
                     yield return counter.Item;
                 }
             }
+        }
+
+        public static bool TryGet<TKey, TValue>(
+            [NotNull] this IReadOnlyDictionary<TKey, ItemCounter<TValue>> map, 
+            TKey key, out 
+            TValue result)
+        {
+            ItemCounter<TValue> existing;
+            if (map.TryGetValue(key, out existing))
+            {
+                result = existing.Item;
+                return true;
+            }
+            result = default(TValue);
+            return false;
+        }
+
+
+        public static TValue Get<TKey, TValue>(
+            [NotNull] this IReadOnlyDictionary<TKey, ItemCounter<TValue>> map,
+            TKey key,
+            [CanBeNull] IReadOnlyDictionary<TKey, TValue> backup)
+        {
+            if (!map.TryGet(key, out var item))
+            {
+                if (backup != null)
+                {
+                    return backup[key];
+                }
+                throw new ArgumentOutOfRangeException();
+            }
+            return item;
         }
 
         public static bool TryIncreaseCount<TKey, TValue>([NotNull] this Dictionary<TKey, ItemCounter<TValue>> map, TKey key)

@@ -22,7 +22,7 @@ namespace ObservableData.Querying.Select.Immutable
         {
             foreach (var item in source)
             {
-                yield return this.Select(item);
+                yield return _map[item].Item;
             }
         }
 

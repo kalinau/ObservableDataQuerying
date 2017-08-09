@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using ObservableData.Structures;
 using ObservableData.Structures.Utils;
 
 namespace ObservableData.Querying.Compatibility
 {
-    public sealed class ListUpdateToQueryUpdates<T> : IUpdate<ListOperation<T>>
+    public sealed class ListUpdateToQueryUpdates<T> : IUpdate<ListOperation<T>>, IEnumerable<ListOperation<T>>
     {
         [NotNull] private readonly IUpdate<IListOperation<T>> _adaptee;
 
@@ -77,5 +78,12 @@ namespace ObservableData.Querying.Compatibility
                 }
             }
         }
+
+        public IEnumerator<ListOperation<T>> GetEnumerator()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
     }
 }

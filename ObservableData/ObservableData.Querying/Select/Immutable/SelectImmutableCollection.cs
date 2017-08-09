@@ -23,13 +23,7 @@ namespace ObservableData.Querying.Select.Immutable
         private IEnumerable<TOut> Enumerate()
         {
             Debug.Assert(_map.Values != null);
-            foreach (var counter in _map.Values)
-            {
-                for (var i = 0; i < counter.Count; i++)
-                {
-                    yield return counter.Item;
-                }
-            }
+            return _map.Values.Enumerate();
         }
 
         public IEnumerator<TOut> GetEnumerator() => this.Enumerate().GetEnumerator();
